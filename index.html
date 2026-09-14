@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portuguese for volunteers — IAFA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--green:#046A38;--green-deep:#0A3D2A;--green-ink:#062a1d;--gold:#F2B705;--gold-dk:#B08600;--red:#C8102E;--blue:#2A6FB0;--blue-dk:#1d5388;--paper:#FBF6EC;--ink:#16261C;--muted:#5F6F63;--line:#E2D9C6;
+--fd:"Fraunces","Georgia",serif;--fu:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;}
+*{box-sizing:border-box}html,body{margin:0;-webkit-text-size-adjust:100%}
+body{font-family:var(--fu);color:var(--ink);background:radial-gradient(1100px 620px at 50% -8%,#12583c 0%,#0A3D2A 52%,#06301f 100%) #06301f;min-height:100vh;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='84' height='84'><g fill='none' stroke='%23CFE6FF' stroke-width='1.3'><rect x='3.5' y='3.5' width='77' height='77' rx='8'/><path d='M42 14 C50 32 52 34 70 42 C52 50 50 52 42 70 C34 52 32 50 14 42 C32 34 34 32 42 14 Z'/><circle cx='42' cy='42' r='4.5'/><circle cx='42' cy='42' r='11'/></g></svg>");background-size:84px 84px}
+.wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:30px 20px 56px}
+.hero{text-align:center;color:#fff;padding:12px 0 6px}
+.flagchip{display:inline-flex;height:30px;width:46px;border-radius:6px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,.35);position:relative;vertical-align:middle}
+.flagchip i{display:block;height:100%}.flagchip .g{width:40%;background:var(--green)}.flagchip .r{width:60%;background:var(--red)}
+.flagchip::after{content:"";position:absolute;left:calc(40% - 8px);top:50%;width:16px;height:16px;transform:translateY(-50%);border-radius:50%;background:var(--gold);box-shadow:0 0 0 2px rgba(255,255,255,.25)}
+.eyebrow{display:inline-block;margin:14px 0 0;letter-spacing:.22em;font-size:12.5px;font-weight:700;color:var(--gold);text-transform:uppercase}
+h1{font-family:var(--fd);font-size:clamp(34px,6vw,54px);margin:.12em 0 .08em;font-weight:600;line-height:1.03;color:#fff}
+h1 span{color:var(--gold)}
+.sub{color:#CFE6D8;font-size:clamp(15px,2.4vw,18px);max-width:640px;margin:0 auto}
+.hint{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);color:#EAF3EC;border-radius:14px;padding:12px 16px;margin:22px auto 8px;max-width:640px;font-size:14px;line-height:1.5;text-align:center}
+.hint b{color:#fff}
+.sectitle{color:#9FC3AD;font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin:26px 4px 12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+.card{position:relative;display:flex;align-items:center;gap:16px;text-decoration:none;background:linear-gradient(180deg,#fff,#FBF6EC);border:1px solid rgba(255,255,255,.55);border-radius:20px;padding:20px;box-shadow:0 8px 22px rgba(3,20,12,.20);color:var(--ink);transition:transform .18s ease,box-shadow .18s ease;overflow:hidden}
+.card:hover{transform:translateY(-4px);box-shadow:0 18px 38px rgba(3,20,12,.30)}
+.card .badge{width:60px;height:60px;flex:0 0 auto;border-radius:16px;display:grid;place-items:center;font-size:30px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04),0 4px 10px rgba(0,0,0,.08)}
+.card h3{font-family:var(--fd);margin:0 0 3px;font-size:21px}
+.card p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.35}
+.card .go{margin-left:auto;flex:0 0 auto;font-weight:800;color:var(--green);font-size:22px}
+.card.a1 .badge{background:#DCEBFA;color:var(--blue-dk)} .card.a2 .badge{background:#FCEEC2;color:var(--gold-dk)}
+.card.a3 .badge{background:#FBE0E4;color:var(--red)} .card.a4 .badge{background:#DCF0E5;color:var(--green)}
+.card.a5 .badge{background:#EDE3FA;color:#6a3fb0} .card.a6 .badge{background:#FCE6D2;color:#B0670B}
+.card.a7 .badge{background:#D3EEF0;color:#0E6E77} .card.rev .badge{background:#EFEAD9;color:var(--muted)}
+.new{display:inline-block;margin-left:8px;vertical-align:middle;font-family:var(--fu);font-size:10.5px;font-weight:800;letter-spacing:.08em;color:#fff;background:var(--red);border-radius:999px;padding:2px 8px;text-transform:uppercase}
+.foot{color:#9FC3AD;text-align:center;font-size:12.5px;margin-top:26px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <span class="flagchip"><i class="g"></i><i class="r"></i></span>
+    <div class="eyebrow">IAFA · Erasmus</div>
+    <h1>Portuguese — <span>lessons</span></h1>
+    <p class="sub">Beginner Portuguese for volunteers. Tap a lesson to open it — play the games, hear the words, and learn at your own pace.</p>
+    <div class="hint">🔊 Turn your sound on to hear the pronunciation. 📱 On your phone you can <b>Share → Add to Home Screen</b> to keep it like an app.</div>
+  </div>
+
+  <div class="sectitle">Lessons</div>
+  <div class="grid">
+    <a class="card a1" href="Portugues_Aula1_Jogos.html">
+      <span class="badge">🏰</span>
+      <div><h3>Lesson 1 <span class="new">now interactive</span></h3><p>History of Portugal (with the material to read) · the alphabet &amp; sounds · greetings · introducing yourself · numbers 0–10</p></div>
+      <span class="go">›</span>
+    </a>
+    <a class="card a2" href="Portugues_Aula2_Jogos.html">
+      <span class="badge">🎨</span>
+      <div><h3>Lesson 2</h3><p>Colours · numbers &amp; prices · telling the time · food · directions · verbs · body</p></div>
+      <span class="go">›</span>
+    </a>
+    <a class="card a3" href="Portugues_Aula3_Jogos.html">
+      <span class="badge">💬</span>
+      <div><h3>Lesson 3</h3><p>Adjectives · the home · family · jobs · feelings</p></div>
+      <span class="go">›</span>
+    </a>
+    <a class="card a4" href="Portugues_Aula4_Jogos.html">
+      <span class="badge">🦁</span>
+      <div><h3>Lesson 4</h3><p>Clothing · nature · seasons · animals · body review</p></div>
+      <span class="go">›</span>
+    </a>
+    <a class="card a5" href="Portugues_Aula5_Jogos.html">
+      <span class="badge">⭐</span>
+      <div><h3>Lesson 5</h3><p>Word of the day · time, days &amp; months · house · arts &amp; jobs · reviews</p></div>
+      <span class="go">›</span>
+    </a>
+    <a class="card a6" href="Portugues_Aula6_Jogos.html">
+      <span class="badge">🎉</span>
+      <div><h3>Lesson 6 <span class="new">new</span></h3><p>Word of the day (amor) · places · events · daily routine · reviews</p></div>
+      <span class="go">›</span>
+    </a>
+    <a class="card a7" href="Portugues_Aula7_Jogos.html">
+      <span class="badge">🎧</span>
+      <div><h3>Lesson 7 <span class="new">new</span></h3><p>Word of the day (alva) · fruit · hobbies · listening exercise · reviews</p></div>
+      <span class="go">›</span>
+    </a>
+  </div>
+
+  <div class="sectitle">Extra — reviews &amp; slides</div>
+  <div class="grid">
+    <a class="card rev" href="Portugues_Revisao_1a3_Jogos.html">
+      <span class="badge">🔁</span>
+      <div><h3>Review 1–3</h3><p>A mixed review of lessons 1, 2 and 3</p></div>
+      <span class="go">›</span>
+    </a>
+    <a class="card rev" href="Portugues_Aula4_com_Revisao_Jogos.html">
+      <span class="badge">🏆</span>
+      <div><h3>Lesson 4 + review</h3><p>New topics plus reviews of lessons 1–3</p></div>
+      <span class="go">›</span>
+    </a>
+    <a class="card rev" href="Aula1_Portugues_Historia_e_Pratica.pdf">
+      <span class="badge">📄</span>
+      <div><h3>Lesson 1 slides</h3><p>The original Lesson 1 presentation (PDF)</p></div>
+      <span class="go">›</span>
+    </a>
+  </div>
+
+  <p class="foot">Associação Intercultural Para Todos (IAFA) · Barcelos<br>Made for Erasmus volunteers learning Portuguese.</p>
+</div>
+</body>
+</html>
