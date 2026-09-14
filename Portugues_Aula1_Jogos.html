@@ -1,0 +1,1162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portuguese — Lesson 1 · Games &amp; Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#046A38; --green-deep:#0A3D2A; --green-ink:#062a1d;
+  --gold:#F2B705; --gold-dk:#B08600;
+  --red:#C8102E; --red-dk:#9d0c24;
+  --blue:#2A6FB0; --blue-dk:#1d5388;
+  --paper:#FBF6EC; --paper-2:#F3ECDC;
+  --ink:#16261C; --muted:#5F6F63; --line:#E2D9C6;
+  --font-display:"Fraunces","Georgia","Times New Roman",serif;
+  --font-ui:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --r:18px; --shadow:0 10px 26px rgba(3,20,12,.20);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%; -webkit-text-size-adjust:100%}
+body{font-family:var(--font-ui); color:var(--ink); background:radial-gradient(1100px 620px at 50% -8%, #12583c 0%, #0A3D2A 52%, #06301f 100%) #06301f; -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:rgba(0,0,0,0); overflow-x:hidden}
+body::before{content:""; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.07;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='84' height='84'><g fill='none' stroke='%23CFE6FF' stroke-width='1.3'><rect x='3.5' y='3.5' width='77' height='77' rx='8'/><path d='M42 14 C50 32 52 34 70 42 C52 50 50 52 42 70 C34 52 32 50 14 42 C32 34 34 32 42 14 Z'/><circle cx='42' cy='42' r='4.5'/><circle cx='42' cy='42' r='11'/></g></svg>");
+  background-size:84px 84px;}
+.wrap{position:relative; z-index:1; max-width:1060px; margin:0 auto; padding:26px 20px 48px; min-height:100%}
+.screen{display:none; animation:fade .35s ease both}
+.screen.active{display:block}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+/* HOME */
+.hero{text-align:center; color:#fff; padding:14px 0 8px}
+.flagchip{display:inline-flex; height:30px; width:46px; border-radius:6px; overflow:hidden; box-shadow:0 3px 10px rgba(0,0,0,.35); vertical-align:middle; position:relative}
+.flagchip i{display:block; height:100%}
+.flagchip .g{width:40%; background:var(--green)}
+.flagchip .r{width:60%; background:var(--red)}
+.flagchip::after{content:""; position:absolute; left:calc(40% - 8px); top:50%; width:16px; height:16px; transform:translateY(-50%); border-radius:50%; background:var(--gold); box-shadow:0 0 0 2px rgba(255,255,255,.25)}
+.eyebrow{display:inline-block; margin:14px 0 0; letter-spacing:.22em; font-size:12.5px; font-weight:700; color:var(--gold); text-transform:uppercase}
+.h-title{font-family:var(--font-display); font-size:clamp(36px,6.2vw,60px); margin:.12em 0 .08em; font-weight:600; line-height:1.02; letter-spacing:-.01em; text-shadow:0 2px 18px rgba(0,0,0,.25)}
+.h-title span{color:var(--gold)}
+.h-sub{color:#CFE6D8; font-size:clamp(15px,2.4vw,18px); margin:0 auto; max-width:680px}
+
+.grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:30px 0 16px}
+@media(max-width:820px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}}
+.tile{position:relative; text-align:left; background:linear-gradient(180deg,#ffffff,#FBF6EC); border:1px solid rgba(255,255,255,.55); border-radius:20px; padding:22px; cursor:pointer; box-shadow:0 8px 22px rgba(3,20,12,.20); color:var(--ink); transition:transform .18s ease, box-shadow .18s ease; overflow:hidden; font-family:inherit}
+.tile:hover{transform:translateY(-5px); box-shadow:0 20px 42px rgba(3,20,12,.30)}
+.tile:focus-visible{outline:3px solid var(--gold); outline-offset:3px}
+.tile .badge{width:56px; height:56px; border-radius:16px; display:grid; place-items:center; font-size:28px; margin-bottom:13px; box-shadow:inset 0 0 0 1px rgba(0,0,0,.04), 0 4px 10px rgba(0,0,0,.08)}
+.tile h3{font-family:var(--font-display); margin:0 0 3px; font-size:21px}
+.tile p{margin:0; color:var(--muted); font-size:13.5px; line-height:1.3}
+.tile.q .badge{background:#FCEEC2; color:var(--gold-dk)} .tile.m .badge{background:#FBE0E4; color:var(--red-dk)}
+.tile.s .badge{background:#DCEBFA; color:var(--blue-dk)} .tile.n .badge{background:#DCF0E5; color:var(--green)}
+.tile .corner{position:absolute; right:-26px; top:-26px; width:70px; height:70px; border-radius:50%; opacity:.16}
+.tile.q .corner{background:var(--gold)} .tile.m .corner{background:var(--red)} .tile.s .corner{background:var(--blue)} .tile.n .corner{background:var(--green)}
+.tile.wide{grid-column:1 / -1; display:flex; align-items:center; gap:16px; background:linear-gradient(100deg,#0e4c34,#0A3D2A); color:#fff}
+.tile.wide .badge{margin:0; background:var(--gold); color:var(--green-ink)}
+.tile.wide h3{color:#fff} .tile.wide p{color:#CFE6D8}
+.tip{color:#9FC3AD; text-align:center; font-size:13.5px; margin-top:10px}
+.tip b{color:#CFE6D8}
+
+/* BAR */
+.bar{display:flex; align-items:center; gap:14px; margin-bottom:16px}
+.back{font-family:inherit; font-size:15px; font-weight:700; color:#fff; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.18); padding:9px 15px; border-radius:999px; cursor:pointer}
+.back:hover{background:rgba(255,255,255,.2)}
+.bar-title{font-family:var(--font-display); color:#fff; font-size:22px; font-weight:700; flex:1; line-height:1.1}
+.bar-title small{display:block; font-family:var(--font-ui); font-size:12.5px; font-weight:600; color:#9FC3AD; letter-spacing:.02em}
+.chip{background:var(--gold); color:var(--green-ink); font-weight:800; padding:8px 14px; border-radius:999px; font-size:15px; white-space:nowrap}
+.chip.blue{background:var(--blue); color:#fff}
+
+.panel{background:var(--paper); border-radius:24px; box-shadow:0 14px 40px rgba(3,20,12,.24); padding:30px 30px 26px}
+@media(max-width:640px){.panel{padding:20px 16px}}
+
+/* seg tabs */
+.segwrap{display:flex; gap:8px; background:var(--paper-2); padding:5px; border-radius:999px; margin:0 auto 20px; width:max-content}
+.seg{border:none; background:transparent; font-family:inherit; font-weight:700; font-size:14.5px; padding:9px 20px; border-radius:999px; cursor:pointer; color:var(--muted)}
+.seg.active{background:#fff; color:var(--ink); box-shadow:0 2px 6px rgba(0,0,0,.08)}
+
+/* buttons */
+.btn{font-family:inherit; font-size:16px; font-weight:700; border:none; border-radius:12px; padding:13px 22px; cursor:pointer; transition:transform .12s ease, background .12s}
+.btn:active{transform:translateY(1px)}
+.btn:focus-visible{outline:3px solid var(--gold); outline-offset:2px}
+.btn-primary{background:linear-gradient(180deg,#068a4d,#046A38); color:#fff; box-shadow:0 8px 18px rgba(4,106,56,.34)}
+.btn-primary:hover{background:linear-gradient(180deg,#08a058,#05713d)}
+.btn-ghost{background:var(--paper-2); color:var(--ink)} .btn-ghost:hover{background:#e9e0cd}
+
+/* structure: how-to bars, flow strip, call-to-action */
+.flowline{display:flex; gap:10px; justify-content:center; align-items:center; flex-wrap:wrap; margin:20px 0 2px}
+.flowline .step{background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.16); color:#EAF3EC; padding:7px 14px; border-radius:999px; font-size:13px; font-weight:600}
+.flowline .step b{color:var(--gold)}
+.flowline .arrow{color:#9FC3AD; font-weight:800}
+.howbar{display:flex; gap:11px; align-items:flex-start; background:#EAF3EC; border:1px solid #D8E3DB; border-radius:12px; padding:11px 15px; margin-bottom:18px; font-size:14px; color:var(--ink); line-height:1.4}
+.howbar .i{font-size:18px; line-height:1.25; flex:0 0 auto}
+.howbar b{color:var(--green)}
+.cta{display:flex; justify-content:center; margin-top:20px}
+.rowend{display:flex; justify-content:flex-end; margin-top:18px}
+
+/* team mode: setup */
+.setup-block{margin-bottom:20px}
+.setup-block h4{font-family:var(--font-display); margin:0 0 10px; font-size:17px; color:var(--green-ink)}
+.ts-names{display:grid; grid-template-columns:repeat(2,1fr); gap:10px}
+@media(max-width:560px){.ts-names{grid-template-columns:1fr}}
+.ts-name{display:flex; align-items:center; gap:10px; background:#fff; border:2px solid var(--line); border-radius:12px; padding:9px 13px}
+.ts-name .dot{width:16px; height:16px; border-radius:50%; flex:0 0 auto}
+.ts-name input{border:none; outline:none; font-family:inherit; font-size:16px; font-weight:700; color:var(--ink); width:100%; background:transparent}
+.chips{display:flex; gap:8px; flex-wrap:wrap}
+.chipbtn{font-family:inherit; font-weight:700; font-size:14px; padding:8px 14px; border-radius:999px; border:2px solid var(--line); background:#fff; cursor:pointer; color:var(--muted)}
+.chipbtn.on{background:var(--green); color:#fff; border-color:var(--green)}
+/* team mode: scoreboard */
+.scoreboard{display:grid; gap:10px; grid-auto-flow:column; grid-auto-columns:1fr; margin-bottom:22px}
+@media(max-width:560px){.scoreboard{grid-auto-flow:row}}
+.teamcard{position:relative; background:linear-gradient(180deg,#fff,#FBF6EC); border:2px solid var(--line); border-radius:16px; padding:14px; text-align:center; transition:transform .15s, border-color .15s, box-shadow .15s}
+.teamcard .tname{font-weight:800; font-size:15px; color:var(--ink); display:flex; align-items:center; justify-content:center; gap:7px}
+.teamcard .tname .dot{width:12px; height:12px; border-radius:50%}
+.teamcard .tscore{font-family:var(--font-display); font-size:34px; font-weight:700; color:var(--green); line-height:1.1; margin-top:2px}
+.teamcard.active{border-color:var(--gold); box-shadow:0 0 0 3px rgba(242,183,5,.35); transform:translateY(-3px)}
+.teamcard.active::after{content:"a jogar"; position:absolute; top:-11px; left:50%; transform:translateX(-50%); background:var(--gold); color:var(--green-ink); font-size:10.5px; font-weight:800; padding:2px 10px; border-radius:999px; text-transform:uppercase; letter-spacing:.03em}
+.teamcard .plus{position:absolute; right:9px; top:9px; color:var(--green); font-weight:800; font-size:15px; opacity:0}
+.teamcard .plus.show{animation:floatup .9s ease}
+@keyframes floatup{0%{opacity:0; transform:translateY(6px)}30%{opacity:1}100%{opacity:0; transform:translateY(-12px)}}
+.turnbanner{text-align:center; font-family:var(--font-display); font-size:20px; font-weight:700; color:var(--green-ink); margin-bottom:4px}
+.turnbanner b{color:var(--gold-dk)}
+.ranklist{display:grid; gap:8px; max-width:440px; margin:12px auto 22px}
+.rankrow{display:flex; align-items:center; gap:12px; background:#fff; border:2px solid var(--line); border-radius:12px; padding:10px 16px}
+.rankrow .rk{font-size:22px; width:34px; text-align:center}
+.rankrow .dot{width:14px; height:14px; border-radius:50%}
+.rankrow .rn{font-weight:700; flex:1; text-align:left; color:var(--ink)}
+.rankrow .rs{font-weight:800; color:var(--green)}
+
+/* LEARN grid */
+.notebar{background:var(--paper-2); border-radius:12px; padding:11px 15px; font-size:14px; color:var(--ink); margin-bottom:16px}
+.notebar b{color:var(--green)}
+.learn-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:12px}
+.learn-card{position:relative; text-align:left; background:#fff; border:2px solid var(--line); border-radius:14px; padding:14px 44px 14px 16px; cursor:pointer; font-family:inherit; transition:border-color .12s, transform .1s}
+.learn-card:hover{border-color:var(--green); transform:translateY(-2px)}
+.learn-card.hasw{padding-left:52px}
+.learn-card .lp{font-family:var(--font-display); font-size:19px; font-weight:700; color:var(--green-ink); line-height:1.15}
+.learn-card .le{font-size:13.5px; color:var(--muted); margin-top:2px}
+.learn-card .sw{width:26px; height:26px; border-radius:7px; border:1px solid rgba(0,0,0,.18); position:absolute; left:14px; top:50%; transform:translateY(-50%)}
+.learn-card .spk{position:absolute; right:8px; top:50%; transform:translateY(-50%); border:none; background:transparent; font-size:17px; cursor:pointer; padding:6px; border-radius:8px; line-height:1}
+.learn-card .spk:hover{background:rgba(0,0,0,.06)}
+.learnhint{text-align:center; color:var(--muted); font-size:13.5px; margin:16px 0 0}
+
+/* PICK game */
+.spkbig{border:none; background:var(--blue); color:#fff; font-weight:700; font-size:15px; border-radius:999px; padding:9px 16px; cursor:pointer; margin-bottom:8px}
+.spkbig:hover{background:var(--blue-dk)}
+.promptbox{display:flex; justify-content:center; align-items:center; min-height:150px; margin:4px 0}
+.prompttext{font-family:var(--font-display); font-size:clamp(28px,5vw,48px); font-weight:700; color:var(--green-ink); text-align:center; line-height:1.1}
+.numbig{font-family:var(--font-display); font-size:clamp(66px,15vw,120px); font-weight:700; color:var(--green); line-height:1}
+.swatch{width:130px; height:130px; border-radius:22px; border:3px solid rgba(0,0,0,.12); box-shadow:inset 0 0 0 1px rgba(0,0,0,.05), 0 6px 16px rgba(0,0,0,.14)}
+.numhint{text-align:center; color:var(--muted); font-size:15px; margin-bottom:16px}
+.numopts{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; max-width:560px; margin:0 auto}
+.numopt{font-family:inherit; font-size:19px; font-weight:700; background:#fff; border:2px solid var(--line); border-radius:14px; padding:15px; cursor:pointer; transition:transform .1s, border-color .12s}
+.numopt:hover{border-color:var(--green)}
+.numopt.correct{background:#E7F6EC; border-color:var(--green); animation:pop .3s}
+.numopt.wrong{background:#FBE7EA; border-color:var(--red); animation:shake .32s}
+
+/* MATCH */
+.matchwrap{display:grid; grid-template-columns:1fr 1fr; gap:12px 26px}
+.col{display:grid; gap:12px; align-content:start}
+.mtile{position:relative; font-family:inherit; font-size:16.5px; font-weight:600; text-align:left; background:#fff; border:2px solid var(--line); border-radius:13px; padding:14px 16px; cursor:pointer; transition:border-color .12s, background .12s, transform .1s; min-height:52px}
+.mtile:hover{border-color:var(--blue)}
+.mtile.sel{border-color:var(--blue); background:#EAF2FB; box-shadow:0 0 0 2px rgba(42,111,176,.25)}
+.mtile.done{background:#E7F6EC; border-color:var(--green); color:var(--green-ink); cursor:default; opacity:.85}
+.mtile.miss{animation:shake .32s}
+.mtile .spk{position:absolute; right:8px; top:50%; transform:translateY(-50%); border:none; background:transparent; font-size:17px; cursor:pointer; padding:6px; border-radius:8px; line-height:1}
+.mtile .spk:hover{background:rgba(0,0,0,.06)}
+
+/* result */
+.result{text-align:center; padding:14px 6px}
+.result .stars{font-size:34px; letter-spacing:6px; margin:6px 0; color:var(--gold)}
+.score-big{font-family:var(--font-display); font-size:60px; font-weight:700; color:var(--green); line-height:1}
+.result h2{font-family:var(--font-display); margin:8px 0 4px; font-size:24px}
+.result p{color:var(--muted); margin:0 0 20px}
+.result .btns{display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+
+@keyframes pop{0%{transform:scale(1)}45%{transform:scale(1.05)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.hidden{display:none!important}
+.center{text-align:center}
+@media (prefers-reduced-motion: reduce){*{animation:none!important; transition:none!important}}
+
+/* ===== mobile-friendliness ===== */
+button{touch-action:manipulation}
+.prompttext,.numopt,.opt,.tile p,.tile h3,.mtile,.learn-card .lp,.flash-pt,.bar-title{overflow-wrap:break-word; word-break:break-word}
+.promptbox svg{max-width:100%; height:auto}
+#gm-left .mtile{padding-right:42px}
+@media(max-width:480px){
+  .wrap{padding:16px 12px 40px}
+  .panel{padding:18px 13px; border-radius:20px}
+  .h-title{font-size:clamp(28px,8.5vw,40px)}
+  .h-sub{font-size:14.5px}
+  .bar{gap:10px}
+  .bar-title{font-size:18px}
+  .bar-title small{font-size:11.5px}
+  .back{padding:9px 13px; font-size:14px}
+  .chip{font-size:13px; padding:7px 11px}
+  .tile{padding:17px; border-radius:18px}
+  .tile h3{font-size:19px}
+  .tile .badge{width:50px; height:50px; font-size:25px; border-radius:14px}
+  .flowline{gap:6px; margin:16px 0 0}
+  .flowline .step{font-size:11.5px; padding:6px 10px}
+  .segwrap{width:100%; box-sizing:border-box}
+  .seg{flex:1; text-align:center; padding:11px 6px}
+  .numopts{grid-template-columns:1fr; gap:10px}
+  .numopt{font-size:18px; padding:15px}
+  .matchwrap{gap:9px 9px}
+  .mtile{font-size:15px; min-height:48px; padding:12px 13px}
+  #gm-left .mtile{padding-right:36px}
+  .promptbox{min-height:120px}
+  .spkbig{font-size:14px; padding:10px 18px}
+  .cta .btn{width:100%}
+  .result .btns{flex-direction:column}
+  .result .btns .btn{width:100%}
+  .setup-block h4{font-size:16px}
+  .teamcard .tscore{font-size:30px}
+  .howbar{font-size:13px; padding:10px 12px}
+}
+@media (hover:none){
+  .tile:hover{transform:none; box-shadow:0 8px 22px rgba(3,20,12,.20)}
+  .opt:hover{transform:none}
+  .learn-card:hover{transform:none}
+  .btn:active,.tile:active{transform:translateY(1px)}
+}
+.emoji{font-size:clamp(78px,18vw,120px); line-height:1; text-align:center}
+.emojilabel{font-family:var(--font-ui); font-size:clamp(16px,3vw,20px); font-weight:700; color:var(--muted); text-align:center}
+.setrow{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px}
+.setbtn{font-family:inherit; font-weight:700; font-size:14px; padding:9px 16px; border-radius:999px; border:2px solid var(--line); background:#fff; cursor:pointer; color:var(--muted)}
+.setbtn.active{background:var(--blue); color:#fff; border-color:var(--blue)}
+.ordgrid{display:flex; flex-wrap:wrap; gap:10px; justify-content:center}
+.ordtile{font-family:inherit; font-size:17px; font-weight:700; background:#fff; border:2px solid var(--line); border-radius:12px; padding:13px 18px; cursor:pointer; transition:transform .1s, border-color .12s}
+.ordtile:hover{border-color:var(--blue)}
+.ordtile.done{background:#E7F6EC; border-color:var(--green); color:var(--green-ink); cursor:default}
+.ordtile.miss{animation:shake .32s; border-color:var(--red)}
+.wordcard{background:linear-gradient(160deg,#fff,#F6F0E2); border:2px solid var(--line); border-radius:20px; padding:28px 24px; text-align:center}
+.wordbig{font-family:var(--font-display); font-size:clamp(44px,9vw,72px); font-weight:700; color:var(--green); line-height:1}
+.worddef{text-align:left; font-size:15.5px; line-height:1.5; color:var(--ink); margin:16px 4px 0}
+.worddef b{color:var(--green)}
+.wordtag{font-size:14px; color:var(--muted); font-style:italic; margin-top:2px}
+.wordquote{background:#EAF3EC; border-left:4px solid var(--green); border-radius:10px; padding:14px 16px; margin:18px 2px 6px; text-align:left; font-family:var(--font-display); font-size:19px; color:var(--green-ink); line-height:1.35}
+.wordquote span{display:block; font-family:var(--font-ui); font-size:12.5px; font-style:normal; color:var(--muted); margin-top:8px}
+.wordexps{display:grid; gap:8px; margin:8px 2px 4px}
+.wordexp{display:flex; align-items:center; gap:10px; text-align:left; background:#fff; border:2px solid var(--line); border-radius:12px; padding:11px 14px; cursor:pointer; font-family:inherit}
+.wordexp:hover{border-color:var(--green)}
+.wordexp .pt{font-weight:700; color:var(--green-ink)}
+.wordexp .en{color:var(--muted); font-size:13.5px; flex:1}
+.wordexp .spk{font-size:16px}
+.worddisc{text-align:left; font-size:14.5px; line-height:1.5; color:var(--ink); background:var(--paper-2); border-radius:12px; padding:12px 15px; margin:14px 2px 0}
+.worddisc b{color:var(--green)}
+@media(max-width:480px){ .wordexp{flex-wrap:wrap} .wordexp .en{flex-basis:100%} }
+/* ===== TV / big-screen mode (toggle) ===== */
+#tvbtn{position:fixed; top:12px; right:12px; z-index:60; background:var(--gold); color:var(--green-ink); border:none; border-radius:999px; font-family:var(--font-ui); font-weight:800; font-size:14px; padding:9px 15px; cursor:pointer; box-shadow:0 4px 14px rgba(0,0,0,.35); -webkit-tap-highlight-color:transparent}
+#tvbtn:hover{background:#ffca1a}
+body.tv #tvbtn{font-size:20px; padding:12px 22px; top:18px; right:18px}
+body.tv .wrap{max-width:1560px; padding:40px 56px 64px}
+body.tv .hero{padding:6px 0 4px}
+body.tv .h-title{font-size:74px; text-shadow:0 3px 22px rgba(0,0,0,.35)}
+body.tv .h-sub{font-size:23px; max-width:900px}
+body.tv .eyebrow{font-size:17px}
+body.tv .flowline{margin:26px 0 2px}
+body.tv .flowline .step{font-size:18px; padding:10px 20px}
+body.tv .grid{gap:22px}
+body.tv .tile{padding:30px; border-radius:24px}
+body.tv .tile h3{font-size:30px}
+body.tv .tile p{font-size:19px}
+body.tv .tile .badge{width:74px; height:74px; font-size:38px; border-radius:20px; margin-bottom:16px}
+body.tv .tip{font-size:16px}
+body.tv .bar{margin-bottom:24px}
+body.tv .bar-title{font-size:32px}
+body.tv .bar-title small{font-size:17px}
+body.tv .back{font-size:20px; padding:13px 22px}
+body.tv .chip{font-size:21px; padding:12px 22px}
+body.tv .panel{padding:40px 44px; border-radius:28px}
+body.tv .segwrap .seg{font-size:20px; padding:14px 30px}
+body.tv .howbar{font-size:21px; padding:17px 22px; gap:14px}
+body.tv .howbar .i{font-size:26px}
+body.tv .numhint, body.tv #o-status{font-size:24px}
+body.tv .promptbox{min-height:220px}
+body.tv .promptbox svg{width:min(340px,60vw); height:auto}
+body.tv .prompttext{font-size:60px}
+body.tv .numbig{font-size:170px}
+body.tv .emoji{font-size:190px}
+body.tv .emojilabel{font-size:30px}
+body.tv .swatch{width:200px; height:200px}
+body.tv .numopts{gap:16px; max-width:820px}
+body.tv .numopt{font-size:30px; padding:24px}
+body.tv .opt{font-size:28px; padding:22px 26px}
+body.tv .opt .key{width:34px; height:34px; font-size:17px}
+body.tv .ordgrid{gap:14px}
+body.tv .ordtile{font-size:28px; padding:20px 28px}
+body.tv .setbtn{font-size:20px; padding:13px 24px}
+body.tv .btn{font-size:23px; padding:17px 32px; border-radius:16px}
+body.tv .spkbig{font-size:21px; padding:14px 26px}
+body.tv .learn-grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px}
+body.tv .learn-card{padding:18px 52px 18px 20px}
+body.tv .learn-card .lp{font-size:27px}
+body.tv .learn-card .le{font-size:18px}
+body.tv .learn-card .sw{width:34px; height:34px}
+body.tv .scoreboard{gap:16px}
+body.tv .teamcard{padding:20px}
+body.tv .teamcard .tname{font-size:23px}
+body.tv .teamcard .tscore{font-size:56px}
+body.tv .turnbanner{font-size:32px}
+body.tv .result h2{font-size:40px}
+body.tv .result p{font-size:22px}
+body.tv .result .stars{font-size:52px}
+body.tv .score-big{font-size:90px}
+body.tv .ranklist{max-width:640px}
+body.tv .rankrow{padding:14px 22px}
+body.tv .rankrow .rn{font-size:22px}
+body.tv .rankrow .rs{font-size:22px}
+body.tv .rankrow .rk{font-size:30px; width:46px}
+body.tv .ts-name input{font-size:22px}
+body.tv .chipbtn{font-size:19px; padding:12px 22px}
+body.tv .setup-block h4{font-size:22px}
+body.tv .wordbig{font-size:100px}
+body.tv .wordtag{font-size:20px}
+body.tv .worddef, body.tv .worddisc{font-size:22px; line-height:1.55}
+body.tv .wordquote{font-size:28px}
+body.tv .wordquote span{font-size:16px}
+body.tv .wordexp .pt{font-size:22px}
+body.tv .wordexp .en{font-size:17px}
+body.tv .wordexp .spk{font-size:22px}
+.learn-head{grid-column:1 / -1; font-family:var(--font-display); font-weight:700; color:var(--green-deep); font-size:16px; margin:12px 2px 2px; padding-bottom:5px; border-bottom:2px solid var(--line)}
+body.tv .learn-head{font-size:23px; margin:18px 2px 4px}
+.tomenu{display:inline-flex;align-items:center;gap:6px;color:#CFE6D8;text-decoration:none;font-weight:700;font-size:14px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);padding:8px 14px;border-radius:999px;margin-bottom:10px;-webkit-tap-highlight-color:transparent}
+.tomenu:hover{background:rgba(255,255,255,.18);color:#fff}
+body.tv .tomenu{font-size:19px;padding:11px 20px}
+.spkbig:disabled{opacity:.45; cursor:not-allowed}
+/* ---- Lesson-1 material page ---- */
+.mwrap{max-width:760px;margin:0 auto;padding:6px 2px 46px}
+.mtitle{font-family:var(--fd);color:#fff;font-size:clamp(24px,5vw,32px);text-align:center;margin:10px 0 2px;font-weight:600}
+.mtitle span{color:var(--gold)}
+.mlead{color:#CFE6D8;text-align:center;font-size:14.5px;margin:0 auto 18px;max-width:560px;line-height:1.5}
+.mcard{background:#fff;border-radius:18px;padding:18px 18px 16px;margin:0 0 16px;box-shadow:0 8px 22px rgba(3,20,12,.18)}
+.mcard h2{font-family:var(--fd);font-size:20px;margin:0 0 6px;color:var(--green-ink)}
+.mcard p{font-size:14.5px;line-height:1.6;color:#2b3c31;margin:8px 0}
+.mcard b{color:var(--green-ink)}
+.mapsvg{display:block;width:100%;max-width:440px;height:auto;margin:6px auto 8px;border-radius:12px;border:1px solid var(--line)}
+.flagsvg{display:block;width:100%;max-width:280px;height:auto;margin:6px auto 8px;border-radius:6px;box-shadow:0 3px 12px rgba(0,0,0,.22)}
+.maplegend{font-size:12.5px;color:#5f6f63;text-align:center;margin:0 0 6px}
+.maplegend i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin:0 4px 0 12px;border-radius:2px}
+.mtl{list-style:none;padding:0;margin:8px 0 4px}
+.mtl li{display:flex;gap:12px;padding:7px 0;border-bottom:1px solid #eee;font-size:14px;color:#2b3c31;line-height:1.45}
+.mtl li:last-child{border-bottom:0}
+.mtl b{flex:0 0 auto;min-width:82px;color:var(--green);font-variant-numeric:tabular-nums}
+.mtab{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0 2px}
+.mtab td{padding:7px 10px;border-bottom:1px solid #eef1ee;vertical-align:top}
+.mtab tr:last-child td{border-bottom:0}
+.mtab td.pt{font-weight:700;color:var(--green-ink);cursor:pointer;white-space:nowrap}
+.mtab td.pt:active{color:var(--green)}
+.mtab td.en{color:#5a6b5f}
+.mtab tr:hover{background:#F7F3EA}
+.mpills{margin:8px 0 2px}
+.mpill{display:inline-block;background:#EDF6F0;border:1px solid #cfe6d8;border-radius:999px;padding:5px 12px;margin:3px 6px 3px 0;font-size:14px;color:var(--green-ink);cursor:pointer}
+.mpill b{color:var(--green);margin-right:6px;font-variant-numeric:tabular-nums}
+.mflags{margin:6px 0 2px}
+.mflag{display:inline-block;background:#f5f1e7;border:1px solid var(--line);border-radius:10px;padding:5px 10px;margin:3px 6px 3px 0;font-size:13.5px;color:#2b3c31}
+.mtiny{color:#8a9b8f;font-weight:400}
+.mhear{color:#7a8a7f;font-size:12.5px;margin:2px 0 8px;text-align:center}
+</style>
+</head>
+<body>
+<button id="tvbtn" onclick="document.body.classList.toggle('tv'); this.textContent=document.body.classList.contains('tv')?'📺 TV ✓':'📺 TV';" title="Big-screen / TV mode">📺 TV</button>
+<div class="wrap">
+<noscript>
+  <div style="max-width:640px;margin:20px auto;padding:18px 20px;background:#FBE3E6;border:2px solid #C8102E;border-radius:14px;color:#16261C;font-family:system-ui,-apple-system,sans-serif;line-height:1.5">
+    <b style="color:#9d0c24;font-size:17px">⚠️ Open this in a real web browser</b><br>
+    This game runs in your browser, but right now it's showing as a <b>file preview</b> that can't run it — that's why the buttons don't respond.
+    Open it in <b>Safari</b> or <b>Chrome</b>. The easiest way: open it from a <b>web link</b> (a hosted URL), not by tapping the file.
+  </div>
+</noscript>
+
+<!-- ===== HOME ===== -->
+<section id="home" class="screen active">
+  <a class="tomenu" href="index.html">‹ All lessons</a>
+  <div class="hero">
+    <span class="flagchip"><i class="g"></i><i class="r"></i></span>
+    <div class="eyebrow">IAFA · Erasmus · Lesson 1</div>
+    <h1 class="h-title">Portuguese — <span>first steps</span></h1>
+    <p class="h-sub">Lesson 1: a little history of Portugal, the special sounds, greetings, introducing yourself and numbers 0–10. Read or learn each part, then play. Turn your sound on to hear it.</p>
+  </div>
+
+  <div class="flowline">
+    <span class="step"><b>①</b> Learn the words</span>
+    <span class="arrow">→</span>
+    <span class="step"><b>②</b> Play the game</span>
+    <span class="arrow">→</span>
+    <span class="step">🏆 Final challenge</span>
+  </div>
+
+  <div class="grid">
+    <button class="tile wide" onclick="show('material')"><span class="badge">📖</span><div><h3>Lesson notes &amp; maps</h3><p>Read the material first — where Portugal is, its history, the Discoveries, the flag, the sounds &amp; more</p></div></button>
+    <button class="tile wide" onclick="Team.openSetup()"><span class="badge">🏆</span><div><h3>Team mode</h3><p>Team tournament — set up teams, take turns, keep score on the board</p></div></button>
+    <button class="tile q" onclick="Theme.open('history')"><span class="corner"></span><span class="badge">🏰</span><h3>History of Portugal</h3><p>História · a quick quiz</p></button>
+    <button class="tile s" onclick="Theme.open('saudacoes')"><span class="corner"></span><span class="badge">👋</span><h3>Greetings</h3><p>Saudações e cortesia</p></button>
+    <button class="tile m" onclick="Theme.open('intro')"><span class="corner"></span><span class="badge">🙋</span><h3>Introduce yourself</h3><p>Apresentar-se</p></button>
+    <button class="tile n" onclick="Theme.open('numeros')"><span class="corner"></span><span class="badge">🔢</span><h3>Numbers 0–10</h3><p>Números</p></button>
+    <button class="tile s" onclick="Theme.open('sons')"><span class="corner"></span><span class="badge">🔤</span><h3>Alphabet &amp; sounds</h3><p>Sons · listen &amp; learn</p></button>
+    <button class="tile wide" onclick="Theme.openMixed()"><span class="badge">🏆</span><div><h3>Final challenge</h3><p>Mixed quiz — history, greetings, introductions &amp; numbers</p></div></button>
+  </div>
+  <p class="tip">👥 <b>Teacher tip:</b> pick a theme, learn the words together (tap 🔊), then switch to <b>Play</b> and compete in teams.</p>
+  <p class="tip" style="opacity:.5; font-size:11px; margin-top:12px; letter-spacing:.04em">Lesson 1 · mobile build</p>
+</section>
+
+<!-- ===== LESSON NOTES & MAPS ===== -->
+<section id="material" class="screen">
+  <div class="mwrap">
+    <button class="tomenu" onclick="show('home')">‹ Back to menu</button>
+    <h1 class="mtitle">Lesson 1 — <span>Portugal &amp; first words</span></h1>
+    <p class="mlead">Read (and tap 🔊 to hear) the material below. Then go back and play the games to practise.</p>
+    <p class="mhear">Tip: tap any Portuguese word in green to hear it.</p>
+
+    <div class="mcard">
+      <h2>🗺️ Where is Portugal?</h2>
+      <svg viewBox="0 0 460 361" class="mapsvg" role="img" aria-label="Map of Portugal in the Iberian Peninsula" xmlns="http://www.w3.org/2000/svg">
+<rect width="460" height="361" fill="#CFE3F2"/>
+<path d="M43.6,81.4 L30.9,63.8 75.0,34.4 113.1,41.8 154.9,41.5 188.0,48.4 213.9,46.3 264.2,47.7 276.6,63.5 334.0,81.9 345.3,73.2 380.3,91.5 416.4,86.3 418.1,109.9 388.6,137.0 348.7,145.6 345.9,159.2 326.8,181.8 314.7,214.9 326.9,238.1 308.9,256.2 302.1,282.7 278.6,290.8 256.6,322.0 217.1,322.6 187.4,321.9 167.9,336.2 157.6,349.4 146.2,349.4 140.7,348.2 129.2,334.5 120.4,311.1 91.3,304.8 88.7,291.3 100.2,276.1 104.5,265.0 93.8,253.0 102.4,226.2 89.9,201.9 103.4,198.5 104.6,179.3 109.7,173.4 110.1,141.6 124.5,130.6 115.7,110.2 97.6,108.8 92.3,114.0 73.9,114.0 66.1,94.1 53.4,100.0 42.1,110.4 43.6,81.4 Z" fill="#E7DABE" stroke="#C9B98F" stroke-width="1.2"/>
+<path d="M53.4,100.0 L66.1,94.1 73.9,114.0 92.3,114.0 97.6,108.8 115.7,110.2 124.5,130.6 110.1,141.6 109.7,173.4 104.6,179.3 103.4,198.5 89.9,201.9 102.4,226.2 93.8,253.0 104.5,265.0 100.2,276.1 88.7,291.3 91.3,304.8 78.8,315.4 62.4,309.6 46.3,314.1 51.0,282.3 48.1,257.3 34.2,253.5 26.7,238.1 29.2,211.5 41.6,196.8 43.8,180.3 50.3,155.9 49.7,138.7 43.4,124.1 42.1,110.4 53.4,100.0 Z" fill="#12864B" stroke="#0A3D2A" stroke-width="1.4"/>
+<text x="290" y="166" font-size="20" fill="#8f7f57" font-weight="800" letter-spacing="2" text-anchor="middle">ESPANHA</text>
+<text x="290" y="184" font-size="11" fill="#a89876" text-anchor="middle">Spain</text>
+<g font-size="12.5" fill="#12261C" stroke="#fff" stroke-width="3.2" paint-order="stroke" stroke-linejoin="round"><text x="46.8" y="242.8" text-anchor="start" font-weight="800">Lisboa</text><text x="63.3" y="144.1" text-anchor="start" font-weight="700">Porto</text><text x="69.2" y="182.3" text-anchor="start" font-weight="700">Coimbra</text><text x="69.2" y="127.8" text-anchor="start" font-weight="700">Braga</text><text x="84.5" y="312.0" text-anchor="start" font-weight="700">Faro</text></g>
+<g><text x="30.8" y="244.8" font-size="19" fill="#F2B705" stroke="#7a5c00" stroke-width="1" paint-order="stroke">★</text><circle cx="55.3" cy="140.1" r="4.2" fill="#F2B705" stroke="#7a5c00" stroke-width="1.3"/><circle cx="61.2" cy="178.3" r="4.2" fill="#F2B705" stroke="#7a5c00" stroke-width="1.3"/><circle cx="61.2" cy="123.8" r="4.2" fill="#F2B705" stroke="#7a5c00" stroke-width="1.3"/><circle cx="76.5" cy="308.0" r="4.2" fill="#F2B705" stroke="#7a5c00" stroke-width="1.3"/></g>
+<text x="16" y="210" font-size="12.5" fill="#5f92bd" font-weight="700" transform="rotate(-90 16,210)">OCEANO ATLÂNTICO</text>
+</svg>
+      <p>Portugal is in the far <b>southwest of Europe</b>, on the <b>Iberian Peninsula</b>. Its only neighbour by land is <b>Spain</b> (<span class="mtab"><span class="pt" onclick="speak('a Espanha')" style="cursor:pointer">a Espanha</span></span>), to the north and east. To the west and south is the <b>Atlantic Ocean</b>. The capital is <b onclick="speak('Lisboa')" style="cursor:pointer">Lisboa</b> (Lisbon). Other important cities: <b>Porto</b> (north), <b>Coimbra</b> (centre) and <b>Faro</b> (south, the Algarve). About <b>10 million</b> people live there, and the currency is the <b>euro (€)</b>.</p>
+      <p><b>Mainland Portugal</b> has regions such as the <b>North</b> (Porto), the <b>Centre</b> (Coimbra), <b>Lisbon</b>, the <b>Alentejo</b> and the <b>Algarve</b> in the south. There are also two island regions in the Atlantic — <b>Madeira</b> 🌺 and the <b>Azores</b> 🌋 (<i>os Açores</i>). The longest river is the <b>Tejo</b> (Tagus), which reaches the sea at Lisbon. The climate is mild, with warm, sunny summers. 🌞</p>
+    </div>
+
+    <div class="mcard">
+      <h2>📜 A short history</h2>
+      <ul class="mtl">
+        <li><b>Before 1143</b><span>The Romans called this land <i>Lusitânia</i>. Later came the Visigoths and, from 711, the <b>Moors</b> (Muslims from North Africa).</span></li>
+        <li><b>1143</b><span>Portugal becomes an independent kingdom — the first king is <b>Dom Afonso Henriques</b>.</span></li>
+        <li><b>1249</b><span>The borders are fixed — almost the same as today. Portugal is one of Europe’s oldest countries.</span></li>
+        <li><b>1400s–1500s</b><span>The <b>Age of Discoveries</b> — Portuguese ships explore the oceans.</span></li>
+        <li><b>1580–1640</b><span>Portugal and Spain share the same king; in <b>1640</b> Portugal restores its independence.</span></li>
+        <li><b>1755</b><span>A huge earthquake and tsunami destroy much of Lisbon.</span></li>
+        <li><b>1910</b><span>Portugal becomes a <b>republic</b>.</span></li>
+        <li><b>1974</b><span>The <b>Carnation Revolution</b> (25 de Abril) brings democracy.</span></li>
+        <li><b>1986</b><span>Portugal joins the <b>European Union</b>; it has used the <b>euro</b> since 2002.</span></li>
+      </ul>
+    </div>
+
+    <div class="mcard">
+      <h2>⛵ The Discoveries</h2>
+      <svg viewBox="0 0 780 544" class="mapsvg" role="img" aria-label="The Portuguese Discoveries — sea routes to Brazil and India" xmlns="http://www.w3.org/2000/svg">
+<rect width="780" height="544" fill="#CFE3F2"/>
+<path d="M118,522 L109,515 123,520 126,516 133,515 136,520 147,523 145,525 139,524 135,527 118,522 Z M178,448 L180,450 180,452 176,457 170,459 158,459 159,467 147,468 147,472 150,474 152,472 153,474 147,478 145,484 138,486 137,489 145,493 143,497 139,499 136,504 131,507 135,514 130,513 124,516 123,519 122,520 108,513 105,499 107,495 111,492 105,491 109,487 110,481 114,482 117,474 114,473 113,478 110,477 115,461 113,453 115,453 122,434 121,420 124,415 127,390 126,377 103,363 89,333 83,329 84,327 82,323 88,315 88,313 86,315 84,313 84,308 87,301 92,299 94,294 99,289 98,288 98,277 95,274 95,271 91,268 86,271 88,274 86,275 81,272 74,270 69,264 68,264 67,266 65,264 65,260 57,252 58,251 43,248 29,239 22,241 8,237 8,33 14,33 14,30 17,30 23,31 23,35 26,32 29,32 31,28 22,24 22,19 27,16 36,19 42,23 38,25 46,26 46,30 51,27 56,30 54,33 58,35 65,29 66,24 82,27 83,29 80,31 83,34 82,36 74,38 65,38 58,45 45,50 45,52 40,53 31,60 29,68 35,69 39,76 44,75 68,83 79,83 79,91 82,95 88,99 91,98 93,94 91,87 88,85 95,83 101,78 98,72 93,69 98,65 95,55 98,54 112,54 122,59 129,60 130,68 137,71 142,69 149,63 162,76 160,79 178,86 179,89 184,91 184,95 167,103 142,103 123,117 133,111 147,107 151,109 147,112 149,119 155,121 161,120 165,116 165,119 168,120 146,130 143,130 143,126 150,123 139,123 139,125 127,129 125,132 124,135 128,137 113,140 120,140 112,141 108,148 105,146 107,150 104,155 105,152 102,147 102,152 100,151 102,152 105,162 91,170 82,178 82,184 87,197 86,203 83,203 81,201 76,193 76,188 71,184 67,186 62,182 51,183 49,183 51,187 47,188 41,185 32,185 19,193 16,214 24,229 30,231 45,227 47,220 60,218 60,221 56,231 55,230 54,238 52,241 68,240 74,243 75,247 72,260 79,268 84,269 89,266 100,270 105,266 106,262 108,260 114,259 120,254 123,256 120,258 121,268 123,265 122,260 127,259 128,255 135,262 142,261 148,264 150,262 160,261 156,262 158,264 164,267 164,270 171,272 173,277 179,280 191,281 202,287 205,296 207,297 207,300 204,303 212,305 213,309 216,306 227,310 229,313 229,315 233,314 247,316 258,323 266,326 268,333 266,340 252,356 250,376 243,392 239,396 228,398 216,404 213,408 211,419 192,442 187,444 182,444 173,440 173,442 178,445 178,448 Z M94,231 L100,230 103,233 99,233 94,231 Z M139,230 L145,231 139,232 139,230 Z M134,230 L133,231 125,230 122,234 118,231 110,231 110,229 118,229 116,226 114,226 115,224 124,225 134,230 Z M94,214 L110,224 97,225 99,222 95,221 93,218 79,215 80,214 68,216 75,212 85,212 90,214 94,214 Z M97,209 L94,206 95,203 97,209 Z M98,200 L98,198 96,196 100,198 98,200 Z M92,197 L96,198 92,198 92,197 Z M148,175 L149,175 148,175 148,175 148,175 Z M151,116 L159,118 156,120 150,117 151,116 Z M158,108 L149,105 160,108 158,108 Z M87,57 L86,56 88,54 91,55 87,57 Z M72,54 L75,52 80,52 75,55 72,54 Z M87,49 L84,50 75,48 66,52 64,49 59,50 62,48 64,41 87,49 Z M100,36 L99,34 100,31 107,32 107,34 100,36 Z M111,17 L111,19 118,18 123,20 132,22 139,27 132,29 148,33 154,36 160,37 159,39 152,44 140,38 135,39 135,41 146,46 149,50 147,53 132,49 143,56 132,55 108,45 97,47 93,46 96,43 112,42 110,41 112,39 117,35 114,32 100,28 103,27 92,23 82,25 53,22 50,21 54,19 48,19 47,15 54,10 64,9 61,11 65,14 68,11 78,9 85,13 85,16 96,13 111,17 Z M15,23 L25,28 23,29 9,26 15,23 Z M8,17 L8,9 18,9 19,10 16,12 22,14 21,17 15,19 8,17 Z M46,9 L31,16 26,16 24,10 28,8 46,9 Z M86,9 L95,9 102,13 88,13 84,11 86,9 Z M162,512 L173,509 176,510 170,513 168,512 164,513 162,512 Z M370,285 L356,275 347,261 340,255 339,250 336,245 340,240 342,232 341,224 338,220 338,217 346,206 348,199 356,192 359,191 368,184 367,179 369,174 378,168 382,161 397,163 412,158 439,156 444,155 447,155 446,157 450,156 448,158 449,161 449,165 446,167 447,169 467,175 468,179 482,183 486,180 486,175 492,173 521,181 529,178 533,180 534,179 540,180 543,178 549,165 550,161 548,159 550,157 544,157 541,159 535,160 532,157 524,159 516,157 511,151 513,148 510,146 514,142 521,142 522,139 530,140 539,136 546,136 559,140 567,140 572,136 571,133 552,123 558,119 556,117 562,115 545,119 545,121 551,122 550,124 541,127 539,126 539,124 535,123 540,121 538,120 528,118 524,124 521,124 516,134 521,140 516,140 511,143 510,141 505,140 500,141 503,144 501,144 496,143 499,147 497,148 502,151 502,153 498,152 499,154 497,155 498,158 495,158 492,157 490,151 483,143 484,137 470,130 465,124 463,123 461,125 461,122 458,121 455,123 456,128 466,136 469,136 469,138 479,143 479,145 473,142 471,145 474,146 474,148 470,152 468,152 470,148 467,144 454,137 448,132 447,128 441,127 432,132 424,130 418,132 418,136 409,140 405,147 406,149 397,157 389,157 385,160 380,156 371,157 371,151 368,149 371,141 369,132 374,129 398,130 400,128 401,120 394,114 388,112 388,109 399,109 398,105 402,107 411,104 412,100 421,98 425,92 438,90 441,88 438,82 440,76 448,73 447,76 449,78 444,82 445,86 449,87 449,88 456,86 462,89 476,85 484,86 491,83 490,77 492,74 496,73 499,76 502,76 503,70 499,70 499,67 517,66 522,64 518,62 497,65 491,61 492,57 490,54 492,51 507,44 507,42 501,40 494,41 490,44 491,46 477,53 474,59 481,64 477,68 473,69 469,80 464,79 462,82 457,83 447,66 439,71 434,72 428,70 426,56 429,54 448,46 465,33 482,25 498,23 504,20 518,19 530,22 525,23 530,26 534,24 551,28 569,34 570,37 559,40 538,37 544,40 545,46 553,49 554,47 551,45 554,43 563,46 567,45 564,42 573,38 581,40 583,37 580,35 582,32 579,30 590,31 592,33 587,34 587,36 590,37 596,36 597,34 620,29 623,29 619,31 640,28 644,31 649,28 645,26 647,25 659,26 679,32 681,30 677,27 672,26 674,24 671,20 684,12 695,13 696,15 692,18 696,22 695,28 699,30 690,39 694,39 705,33 702,31 704,28 700,28 699,25 702,21 697,18 704,16 703,13 707,15 706,19 710,19 708,17 715,15 723,15 730,17 727,14 726,9 772,8 772,217 770,213 766,213 765,217 760,216 760,217 752,218 752,221 750,223 744,226 733,236 733,238 726,240 724,263 722,263 720,266 721,267 717,268 716,271 714,272 711,268 699,240 695,219 686,221 681,216 683,214 682,213 674,208 670,202 651,204 634,201 633,196 631,195 624,198 619,197 611,193 605,183 601,183 597,184 599,190 600,193 605,197 608,205 609,200 611,201 610,206 612,208 621,208 630,198 632,207 640,210 644,215 639,222 636,223 635,228 626,234 626,235 614,239 614,242 600,248 587,251 585,253 579,254 575,243 576,237 569,226 562,219 559,209 555,207 546,192 544,192 545,187 545,186 544,185 541,193 535,185 548,208 547,212 553,216 555,230 559,232 562,240 578,255 576,257 583,262 608,256 609,257 607,267 599,283 591,293 566,314 560,328 563,331 562,338 567,347 568,363 563,371 555,374 544,383 544,386 547,392 547,401 536,407 537,409 534,419 518,435 509,440 496,440 486,443 479,441 477,435 478,431 466,412 463,393 453,376 453,367 456,358 460,352 460,347 457,341 459,338 453,324 441,309 445,292 440,285 429,287 423,279 413,280 398,285 387,283 376,287 370,285 Z M164,261 L163,264 159,264 160,261 164,261 Z M195,109 L196,114 195,117 190,117 190,113 185,116 183,116 186,114 182,113 169,112 178,101 184,97 185,98 180,105 183,103 185,104 184,106 193,107 192,110 195,109 Z M379,83 L383,86 379,95 372,97 366,97 369,93 367,88 379,83 Z M401,86 L404,86 408,92 413,93 410,97 412,99 408,101 383,103 392,98 385,96 389,95 387,93 388,90 394,90 394,88 391,86 387,85 386,81 384,83 381,77 386,69 394,69 390,74 398,73 394,80 398,80 401,86 Z M311,44 L318,44 309,42 312,39 318,38 324,41 330,39 335,40 342,38 348,38 347,41 352,44 347,47 332,50 315,48 319,46 311,44 Z M307,15 L318,18 319,21 312,22 304,18 306,21 301,23 317,23 296,30 279,32 270,37 247,42 244,45 242,50 236,53 237,56 233,64 228,64 222,61 214,61 200,50 198,43 192,40 194,37 191,35 195,31 201,29 203,24 193,27 188,26 190,21 201,22 191,18 184,17 188,14 181,8 325,9 312,11 317,13 317,15 307,15 Z M464,161 L463,161 463,160 464,161 Z M463,160 L463,160 463,160 463,160 Z M456,152 L468,151 466,158 455,154 456,152 Z M443,139 L445,142 444,147 441,148 438,140 443,139 Z M443,139 L440,135 443,132 443,139 Z M449,81 L455,80 456,82 454,85 449,81 Z M474,75 L471,79 471,78 474,75 Z M479,76 L478,74 483,72 481,73 479,76 Z M489,49 L489,50 488,50 489,49 Z M534,164 L541,164 537,166 534,164 Z M499,163 L500,161 511,163 504,164 499,163 Z M680,499 L687,500 686,503 679,503 680,499 Z M604,370 L593,404 587,407 581,404 578,392 582,384 581,374 583,369 590,367 596,362 596,359 598,359 602,352 607,365 606,368 604,366 604,367 604,370 Z M731,274 L731,278 726,280 723,271 725,265 731,274 Z M619,9 L637,8 626,15 627,18 635,21 620,21 618,19 611,18 611,16 615,15 615,13 622,9 619,9 Z" fill="#E7DABE" stroke="#CBBB92" stroke-width="0.7"/>
+<path d="M186.4,415.6 L192.4,411.8 192.5,408.6 190.5,406.3 188.6,407.1 189.9,400.2 185.5,399.9 183.9,393.5 175.4,392.5 175.6,387.0 174.5,384.8 175.7,384.0 175.3,381.7 177.1,376.8 176.2,374.3 174.0,373.2 174.2,369.3 166.5,369.1 165.0,364.5 166.2,364.4 165.2,359.2 160.3,358.1 154.4,354.6 150.0,353.9 145.7,350.4 145.9,343.1 140.7,343.8 134.3,348.2 125.2,348.1 125.5,342.1 122.2,344.4 118.7,344.3 117.2,342.2 114.5,341.9 115.4,340.2 111.5,334.2 112.6,331.8 115.0,330.6 115.9,325.2 124.2,321.1 127.8,321.3 129.7,308.6 127.3,304.8 127.3,301.9 130.3,301.7 130.5,300.1 128.2,299.7 128.1,297.2 135.9,297.3 137.2,295.9 139.1,299.6 142.0,301.2 145.1,300.9 153.8,295.3 150.2,294.1 149.8,288.9 148.0,287.9 154.9,289.0 163.3,285.9 164.8,284.4 164.2,283.3 166.3,283.1 166.7,285.8 169.0,288.2 167.3,293.1 168.6,296.9 171.0,298.8 173.0,299.0 177.8,296.3 183.1,296.8 183.2,294.0 195.3,295.6 200.4,287.5 201.7,287.3 204.9,296.5 207.1,297.1 207.2,299.9 204.2,303.2 205.4,304.4 212.4,305.0 212.6,309.0 215.6,306.4 227.2,310.3 229.2,312.6 228.5,314.8 233.1,313.6 240.9,315.7 246.8,315.6 257.8,323.4 264.3,324.7 265.7,325.9 267.7,333.5 266.1,340.1 252.0,356.3 249.7,375.6 247.7,382.5 243.7,387.7 243.0,391.9 239.8,393.6 238.8,396.0 228.3,397.5 216.3,403.6 212.9,407.6 213.0,412.8 211.4,418.8 193.5,439.2 192.4,436.9 194.2,435.0 191.9,432.3 179.2,424.6 176.6,425.0 186.4,415.6 Z" fill="#F1D9A6" stroke="#c9a95e" stroke-width="0.6"/>
+<path d="M719.9,166.8 L719.5,170.0 721.1,172.1 721.0,174.1 718.1,173.6 719.2,178.0 728.7,183.3 726.1,185.1 724.6,188.9 737.4,194.6 742.9,195.1 745.1,197.1 756.3,198.4 756.6,192.5 759.0,191.7 759.4,195.7 763.0,197.2 772.0,196.7 772.0,204.0 763.7,203.0 763.4,200.2 758.3,198.3 756.9,201.0 759.8,203.1 756.4,206.0 758.9,207.1 758.2,209.5 760.2,215.8 759.6,217.3 752.0,218.1 752.2,221.1 750.1,223.5 744.4,226.1 733.0,236.0 733.0,237.8 725.5,240.5 724.3,243.5 725.4,252.0 723.7,255.8 723.7,262.6 721.6,262.8 719.8,265.9 721.0,267.2 717.4,268.3 714.5,272.2 710.7,268.5 707.3,258.8 703.8,253.1 702.1,245.6 698.5,240.1 694.9,218.6 689.1,221.0 686.3,220.5 681.1,215.7 683.0,214.3 681.9,212.7 677.2,209.3 679.9,206.6 688.6,206.6 685.1,198.1 682.5,196.3 686.9,192.1 691.5,192.4 702.1,180.1 702.0,177.3 705.4,175.0 702.2,173.0 699.4,166.8 701.3,165.0 711.8,165.4 715.6,162.1 719.9,166.8 Z M770.8,193.0 L772.0,192.8 772.0,193.9 770.8,193.0 Z M771.5,209.6 L770.8,212.1 768.7,210.0 772.0,206.0 772.0,209.6 771.5,209.6 Z" fill="#F1D9A6" stroke="#c9a95e" stroke-width="0.6"/>
+<path d="M371.4,135.5 L373.0,134.9 374.0,136.9 376.4,136.9 377.1,136.4 379.4,136.5 380.5,138.5 378.7,139.6 378.6,142.7 378.0,143.3 377.8,145.2 376.1,145.5 377.7,147.9 376.6,150.5 377.9,151.7 377.4,152.8 375.9,154.3 376.3,155.6 374.7,156.7 372.6,156.1 370.5,156.6 371.1,153.4 370.7,151.0 369.0,150.6 368.0,149.1 368.3,146.5 369.9,145.0 371.0,141.0 370.9,139.3 370.1,137.9 370.0,136.5 371.4,135.5 Z" fill="#12864B" stroke="#0A3D2A" stroke-width="0.8"/>
+<defs><marker id="arw" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker></defs>
+<path d="M369.5,149.2 L350.2,224.1 L338.3,292.1 L370.1,376.1 L453.7,436.1 L479.5,442.5 L545.2,436.1 L596.9,376.1 L644.7,320.1 L692.4,276.1 L707.5,258.9" fill="none" stroke="#0F7A46" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#arw)"/>
+<path d="M369.5,150.0 L334.3,200.1 L310.4,244.1 L286.5,288.1 L254.7,336.1 L250.7,368.1" fill="none" stroke="#C05A00" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#arw)"/>
+<circle cx="369.5" cy="149.2" r="4.5" fill="#C8102E" stroke="#fff" stroke-width="1.4"/>
+<g font-weight="700" fill="#12261C" stroke="#fff" stroke-width="3" paint-order="stroke" stroke-linejoin="round" font-size="13">
+<text x="354" y="124" text-anchor="end">Portugal</text>
+<text x="227" y="344" text-anchor="middle">Brasil</text>
+<text x="724" y="224">Índia</text></g>
+<g font-weight="700" fill="#9a8a63" font-size="11" opacity="0.8" text-anchor="middle">
+<text x="486" y="276">ÁFRICA</text>
+<text x="470" y="104">EUROPA</text></g>
+</svg>
+      <div class="maplegend"><i style="background:#0F7A46"></i>to India — around Africa (1498) &nbsp; <i style="background:#B0670B"></i>to Brazil (1500)</div>
+      <p>It began with <b>Infante Dom Henrique</b> (“Henry the Navigator”), who sent ships south along the coast of Africa. Sailors (<span class="pt" onclick="speak('os navegadores')" style="cursor:pointer;font-weight:700;color:var(--green-ink)">os navegadores</span>) crossed the oceans in small ships called <span class="pt" onclick="speak('caravelas')" style="cursor:pointer;font-weight:700;color:var(--green-ink)">caravelas</span>, guided by the stars and the compass.</p>
+      <p>Key voyages: <b>Bartolomeu Dias</b> rounded the south of Africa (the Cape of Good Hope) in <b>1488</b>; <b>Vasco da Gama</b> reached <b>India</b> by sea in <b>1498</b>; <b>Pedro Álvares Cabral</b> arrived in <b>Brazil</b> in <b>1500</b>; and <b>Fernão de Magalhães</b> (Magellan) began the first voyage around the whole world (<b>1519–1522</b>). This is why Portuguese is spoken on several continents today.</p>
+    </div>
+
+    <div class="mcard">
+      <h2>🇵🇹 The flag</h2>
+      <svg class="flagsvg" role="img" aria-label="The flag of Portugal" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 600 400"><path fill="red" d="M0 0h600v400H0z"/><path fill="#060" d="M0 0h240v400H0z"/><g fill="#ff0" fill-rule="evenodd" stroke="#000" stroke-width=".573" stroke-linecap="round" stroke-linejoin="round"><path d="M318.24 261.868c-30.21-.91-168.74-87.38-169.69-101.15l7.65-12.757c13.74 19.966 155.36 104.06 169.27 101.08l-7.23 12.823"/><path d="M154.59 146.228c-2.71 7.294 36.149 31.318 82.903 59.754 46.752 28.434 87.065 46.006 90.053 43.486.183-.325 1.47-2.54 1.352-2.523-.56.844-1.923 1.11-4.05.497-12.632-3.643-45.576-18.765-86.375-43.506-40.798-24.743-76.294-47.544-81.81-57.232-.384-.67-.658-1.896-.602-2.848l-.134-.002-1.175 2.053-.161.322h-.001zm164.36 116.04c-.512.93-1.467.96-3.282.761-11.3-1.25-45.589-17.925-86.162-42.213-47.21-28.26-86.2-54.01-81.97-60.74l1.151-2.034.227.07c-3.804 11.405 76.948 57.578 81.702 60.522 46.724 28.947 86.115 45.851 89.601 41.458l-1.268 2.181v-.002z"/><path d="M240.17 169.058c30.237-.239 67.55-4.132 89.023-12.69l-4.627-7.517c-12.692 7.025-50.21 11.644-84.652 12.335-40.736-.375-69.49-4.168-83.897-13.835l-4.367 8.005c26.484 11.207 53.623 13.587 88.52 13.703"/><path d="M330.44 156.538c-.739 1.182-14.743 6.011-35.373 9.575-13.988 2.133-32.234 3.956-55.004 3.978-21.633.02-39.305-1.52-52.684-3.333-21.656-3.395-32.833-8.12-36.965-9.79.395-.785.65-1.336 1.03-2.07 11.895 4.736 23.124 7.592 36.28 9.616 13.29 1.8 30.75 3.362 52.275 3.341 22.664-.023 40.71-1.984 54.616-4.053 21.155-3.412 32.711-7.804 34.334-9.843l1.494 2.58h-.002zm-4.06-7.622c-2.293 1.841-13.718 5.893-33.82 9.103-13.414 1.922-30.471 3.643-52.264 3.664-20.704.02-37.62-1.375-50.485-3.249-20.414-2.666-31.28-7.475-35.196-8.877.39-.674.786-1.343 1.194-2.014 3.048 1.535 13.533 5.791 34.226 8.723 12.72 1.803 29.66 3.147 50.262 3.126 21.69-.022 38.553-1.776 51.883-3.688 20.205-2.78 31.077-7.947 32.728-9.241l1.473 2.45v.003zm-185.5 56.572c18.598 10.003 59.905 15.044 98.994 15.391 35.591.057 81.958-5.501 99.297-14.69l-.477-10.012c-5.425 8.477-55.113 16.61-99.206 16.276-44.093-.332-85.038-7.143-98.687-15.959l.08 8.992"/><path d="M340.12 204.048v2.388c-2.605 3.115-18.945 7.825-39.436 11.142-15.595 2.39-35.927 4.194-61.262 4.194-24.07 0-43.263-1.716-58.148-4.001-23.53-3.427-38.58-9.427-41.6-11.217l.013-2.786c9.075 6.034 33.661 10.447 41.917 11.798 14.788 2.27 33.868 3.974 57.817 3.974 25.216 0 45.434-1.792 60.931-4.167 14.701-2.123 35.644-7.646 39.767-11.324h.001zm.01-8.492v2.387c-2.605 3.115-18.945 7.824-39.436 11.14-15.595 2.391-35.927 4.195-61.262 4.195-24.07 0-43.263-1.715-58.148-4.002-23.53-3.424-38.58-9.424-41.6-11.216l.013-2.785c9.075 6.033 33.661 10.447 41.917 11.796 14.788 2.272 33.868 3.976 57.817 3.976 25.216 0 45.434-1.792 60.931-4.169 14.701-2.124 35.644-7.646 39.767-11.324l.001.002zm-100.34 64.592c-42.772-.255-79.421-11.659-87.16-13.544l5.643 8.834c13.67 5.75 49.424 14.32 81.927 13.371 32.504-.948 60.91-3.466 80.928-13.21l5.787-9.156c-13.642 6.425-60.068 13.639-87.125 13.705"/><path stroke-width=".55" d="M323.3 253.548a134.08 134.08 0 0 1-2.596 3.83c-9.442 3.329-24.32 6.824-30.597 7.844-12.824 2.642-32.665 4.594-50.274 4.602-37.89-.554-68.905-7.972-83.496-14.299l-1.178-2.024.193-.304 1.996.774c25.948 9.284 55.091 12.987 82.698 13.652 17.538.062 35.095-2.01 49.292-4.549 21.771-4.362 30.574-7.65 33.275-9.14l.687-.386h0zm5.017-8.275l.066.077a269.275 269.275 0 0 1-1.963 3.263c-5.035 1.8-18.702 5.799-38.659 8.589-13.149 1.791-21.322 3.526-47.479 4.034-49.015-1.247-80.75-10.831-88.289-13.195l-1.117-2.143c28.406 7.415 57.422 12.592 89.408 13.12 23.93-.509 34.112-2.271 47.152-4.049 23.27-3.619 34.996-7.45 38.515-8.556a2.667 2.667 0 0 0-.154-.2l2.523-.942-.002.002z"/><path d="M328.83 197.588c.139 28.137-14.26 53.386-25.858 64.525-16.408 15.76-38.163 25.896-63.569 26.363-28.37.521-55.12-17.974-62.295-26.099-14.028-15.885-25.449-36.057-25.815-63.243 1.738-30.709 13.793-52.1 31.268-66.769 17.475-14.669 40.743-21.813 60.121-21.302 22.358.59 48.475 11.558 66.521 33.332 11.823 14.266 16.943 29.748 19.627 53.193zm-89.186-96.342c54.485 0 99.296 44.338 99.296 98.703 0 54.364-44.811 98.704-99.296 98.704-54.485 0-98.924-44.339-98.924-98.704 0-54.365 44.439-98.703 98.924-98.703"/><path d="M239.91 100.908c54.534 0 99.011 44.483 99.011 99.022 0 54.538-44.478 99.02-99.011 99.02-54.534 0-99.011-44.48-99.011-99.02 0-54.539 44.478-99.022 99.011-99.022zm-96.832 99.023c0 53.26 43.736 96.841 96.832 96.841 53.097 0 96.833-43.582 96.833-96.842 0-53.262-43.737-96.844-96.833-96.844s-96.832 43.585-96.832 96.844z"/><path d="M239.99 109.138c49.731 0 90.693 40.821 90.693 90.704 0 49.884-40.963 90.703-90.693 90.703s-90.693-40.819-90.693-90.703c0-49.883 40.964-90.704 90.693-90.704zm-88.515 90.704c0 48.684 39.979 88.523 88.515 88.523s88.515-39.839 88.515-88.524c0-48.686-39.978-88.525-88.515-88.525-48.536 0-88.515 39.84-88.515 88.525z"/><path d="M243.98 100.508h-8.485l.01 198.96h8.514z"/><path d="M243.13 99.374h2.16l.018 201.25h-2.161l-.016-201.25zm-8.421.002h2.176l.003 201.25h-2.178V99.376z"/><path d="M338.99 203.763v-7.355l-5.99-5.58-34-9-49-5-59 3-42 10-8.48 6.28v7.357l21.48-9.637 51-8h49l36 4 25 6z"/><path d="M239.95 184.598c23.383-.043 46.07 2.216 64.065 5.72 18.569 3.712 31.637 8.355 36.105 13.57l-.005 2.583c-5.388-6.49-22.973-11.248-36.518-13.968-17.858-3.474-40.393-5.717-63.647-5.674-24.538.046-47.387 2.37-64.984 5.803-14.12 2.802-32.951 8.368-35.302 13.858v-2.689c1.291-3.8 15.313-9.479 34.984-13.417 17.729-3.457 40.62-5.741 65.302-5.786zm.01-8.492c23.383-.042 46.07 2.217 64.065 5.72 18.569 3.713 31.637 8.355 36.105 13.57l-.005 2.583c-5.388-6.489-22.973-11.247-36.518-13.966-17.858-3.476-40.393-5.719-63.647-5.674-24.538.044-47.276 2.37-64.875 5.801-13.626 2.584-33.226 8.37-35.412 13.86v-2.69c1.291-3.76 15.597-9.642 34.985-13.417 17.729-3.458 40.62-5.74 65.302-5.787zm-.48-43.318c36.849-.184 68.99 5.152 83.695 12.685l5.364 9.28c-12.781-6.889-47.456-14.05-89.005-12.98-33.854.208-70.027 3.727-88.176 13.41l6.403-10.709c14.895-7.724 50.022-11.643 81.72-11.684"/><path d="M239.97 140.448c21.017-.055 41.325 1.13 57.476 4.044 15.041 2.8 29.385 7 31.436 9.26l1.59 2.81c-4.988-3.257-17.4-6.883-33.339-9.906-16.006-3.008-36.3-4.005-57.2-3.95-23.722-.081-42.152 1.171-57.969 3.929-16.728 3.13-28.334 7.602-31.197 9.726l1.558-2.97c5.564-2.838 14.39-6.26 29.223-8.93 16.357-2.988 34.983-3.884 58.423-4.013h0zm-.009-8.484c20.113-.053 39.972 1.068 55.452 3.85 12.209 2.377 24.283 6.088 28.704 9.39l2.326 3.695c-3.954-4.395-18.836-8.56-31.974-10.892-15.361-2.65-34.395-3.698-54.508-3.866-21.108.06-40.615 1.352-55.752 4.109-14.441 2.748-23.76 6.001-27.703 8.542l2.045-3.087c5.441-2.864 14.232-5.495 25.303-7.646 15.249-2.777 34.876-4.036 56.108-4.095zm49.189 109.124c-18.218-3.4-36.469-3.895-49.217-3.745-61.407.72-81.244 12.61-83.665 16.21l-4.59-7.482c15.635-11.332 49.074-17.687 88.588-17.037 20.518.336 38.224 1.698 53.119 4.583l-4.236 7.473"/><path stroke-width=".55" d="M239.58 236.288c17.082.255 33.849.96 50.033 3.979l-1.172 2.069c-15.031-2.775-31.055-3.837-48.803-3.75-22.663-.178-45.585 1.939-65.541 7.666-6.297 1.753-16.721 5.8-17.784 9.146l-1.166-1.922c.336-1.978 6.636-6.081 18.414-9.39 22.858-6.546 44.24-7.65 66.02-7.8v.002zm.775-8.596c17.698.33 35.975 1.149 53.74 4.668l-1.22 2.154c-16.042-3.185-31.37-4.247-52.415-4.57-22.735.04-46.851 1.662-68.778 8.037-7.08 2.062-19.297 6.52-19.704 10.05l-1.166-2.066c.265-3.206 10.842-7.388 20.358-10.156 22.096-6.424 46.275-8.076 69.186-8.117z"/><path d="M327.58 247.208l-7.379 11.45L299 239.827l-55-37-62-34-32.19-11.01 6.86-12.72 2.33-1.27 20 5 66 34 38 24 32 23 13 15z"/><path d="M148.65 158.118c5.646-3.83 47.139 14.655 90.555 40.834 43.301 26.254 84.677 55.921 80.942 61.473l-1.228 1.932-.564.445c.12-.087.743-.848-.06-2.906-1.846-6.07-31.196-29.491-79.895-58.895-47.475-28.31-87.04-45.371-90.997-40.494l1.247-2.39h0zm180.44 88.927c3.57-7.052-34.916-36.044-82.632-64.272-48.813-27.666-83.994-43.95-90.42-39.095l-1.428 2.6c-.012.142.052-.178.354-.41 1.168-1.02 3.105-.952 3.979-.968 11.065.166 42.667 14.71 87.006 40.128 19.428 11.315 82.071 51.491 81.832 62.79.017.97.08 1.17-.285 1.651l1.594-2.423v-.002z"/></g><g transform="translate(0 -.172)"><path fill="#fff" stroke="#000" stroke-width=".67" d="M180.6 211.01c0 16.271 6.663 30.987 17.457 41.742 10.815 10.778 25.512 17.579 41.809 17.579 16.381 0 31.247-6.653 42.016-17.389 10.769-10.735 17.443-25.552 17.446-41.88h-.002v-79.189l-118.74-.141.012 79.278h.002z"/><path fill="red" stroke="#000" stroke-width=".507" d="M182.82 211.12v.045c0 15.557 6.441 29.724 16.775 40.009 10.354 10.305 24.614 16.712 40.214 16.712 15.681 0 29.912-6.36 40.222-16.626 10.308-10.265 16.697-24.433 16.699-40.044h-.002V134.39l-113.84-.018-.07 76.747m91.022-53.746l.004 48.89-.041 5.172h0c0 1.361-.081 2.912-.24 4.233-.925 7.73-4.48 14.467-9.745 19.708-6.164 6.136-14.671 9.942-24.047 9.942-9.327 0-17.64-3.938-23.83-10.1-6.349-6.32-10.03-14.986-10.03-23.947l-.012-54.023 67.94.122.002.002z"/><g id="e"><g id="d" fill="#ff0" stroke="#000" stroke-width=".5"><path stroke="none" d="M190.19 154.43c.135-5.521 4.052-6.828 4.08-6.847.029-.019 4.232 1.407 4.218 6.898l-8.298-.051"/><path d="M186.81 147.69l-.682 6.345 4.14.009c.04-5.25 3.975-6.123 4.07-6.103.09-.005 3.989 1.16 4.093 6.103h4.151l-.75-6.394-15.022.038v.002zm-.96 6.37h16.946c.357 0 .65.353.65.784 0 .43-.293.781-.65.781H185.85c-.357 0-.65-.35-.65-.781 0-.431.293-.784.65-.784z"/><path d="M192.01 154.03c.018-3.313 2.262-4.25 2.274-4.248 0 0 2.342.966 2.36 4.248h-4.634m-5.8-8.98h16.245c.342 0 .623.318.623.705 0 .387-.28.704-.623.704H186.21c-.342 0-.623-.315-.623-.704 0-.387.28-.705.623-.705zm.34 1.42h15.538c.327 0 .595.317.595.704 0 .388-.268.704-.595.704H186.55c-.327 0-.595-.316-.595-.704 0-.387.268-.704.595-.704zm5.02-10.59l1.227.002v.871h.895v-.89l1.257.004v.887h.897v-.89h1.258l-.002 2.01c0 .317-.254.521-.549.521h-4.41c-.297 0-.57-.237-.572-.526l-.003-1.988h.001zm4.62 2.69l.277 6.451-4.303-.015.285-6.453 3.741.017"/><path id="a" d="M190.94 141.56l.131 3.478-4.125.001.116-3.479h3.879-.001z"/><use height="100%" width="100%" xlink:href="#a" x="10.609"/><path id="b" d="M186.3 139.04l1.2.003v.872h.877v-.892l1.23.004v.889h.879v-.893l1.23.002-.002 2.012c0 .314-.249.518-.536.518h-4.317c-.29 0-.559-.235-.56-.525l-.002-1.989h0z"/><use height="100%" width="100%" xlink:href="#b" x="10.609"/><path fill="#000" stroke="none" d="M193.9 140.61c-.026-.627.877-.634.866 0v1.536h-.866v-1.536"/><path id="c" fill="#000" stroke="none" d="M188.57 142.84c-.003-.606.837-.618.826 0v1.187h-.826v-1.187"/><use height="100%" width="100%" xlink:href="#c" x="10.641"/></g><use height="100%" width="100%" xlink:href="#d" y="46.32"/><use height="100%" width="100%" xlink:href="#d" transform="rotate(-45.202 312.766 180.004)"/></g><use height="100%" width="100%" xlink:href="#d" x="45.714"/><use height="100%" width="100%" xlink:href="#e" transform="matrix(-1 0 0 1 479.792 0)"/><g id="f" fill="#fff"><path fill="#039" d="M232.636 202.406v.005c0 2.212.85 4.227 2.212 5.69 1.365 1.466 3.245 2.377 5.302 2.377 2.067 0 3.944-.905 5.303-2.365 1.358-1.459 2.202-3.472 2.202-5.693v-10.768l-14.992-.013-.028 10.766"/><circle cx="236.074" cy="195.735" r="1.486"/><circle cx="244.392" cy="195.742" r="1.486"/><circle cx="240.225" cy="199.735" r="1.486"/><circle cx="236.074" cy="203.916" r="1.486"/><circle cx="244.383" cy="203.905" r="1.486"/></g><use height="100%" width="100%" xlink:href="#f" y="-26.016"/><use height="100%" width="100%" xlink:href="#f" x="-20.799"/><use height="100%" width="100%" xlink:href="#f" x="20.745"/><use height="100%" width="100%" xlink:href="#f" y="25.784"/></g></svg>
+      <div class="maplegend">🟩 verde (green) · 🟥 vermelho (red) · esfera armilar (armillary sphere) · escudo (shield)</div>
+      <p>The flag (<span class="pt" onclick="speak('a bandeira')" style="cursor:pointer;font-weight:700;color:var(--green-ink)">a bandeira</span>) was adopted in <b>1911</b>, after Portugal became a <b>republic</b> in 1910 — it replaced the old blue-and-white flag of the monarchy.</p>
+      <p>Every part has a meaning:</p>
+      <ul class="mtl">
+        <li><b>Green</b><span>Often linked to <b>hope</b> — it was the colour of the republican movement.</span></li>
+        <li><b>Red</b><span>Said to recall the <b>blood</b> of those who died for the country.</span></li>
+        <li><b>Armillary sphere</b><span>A golden navigation instrument (<i>esfera armilar</i>) — the symbol of the <b>Discoveries</b> and Portugal’s voyages across the seas.</span></li>
+        <li><b>5 blue shields</b><span>The <i>quinas</i>, inside the white shield. Legend says they stand for five Moorish kings defeated by <b>Dom Afonso Henriques</b>. The little white dots are old coins (<i>besantes</i>).</span></li>
+        <li><b>7 gold castles</b><span>On the red border — the <b>castles</b> (<i>castelos</i>) taken from the Moors during the <i>Reconquista</i>.</span></li>
+      </ul>
+      <p style="font-size:12.5px;color:#7a8a7f">The green part is smaller (2/5) and the red part larger (3/5); the coat of arms sits right on the line between the two colours — over the point of the armillary sphere, showing Portugal looking out to sea.</p>
+    </div>
+
+    <div class="mcard">
+      <h2>🌍 The Portuguese language</h2>
+      <p><span class="pt" onclick="speak('o português')" style="cursor:pointer;font-weight:700;color:var(--green-ink)">O português</span> is one of the world’s most spoken languages — around <b>260 million</b> speakers. It is the official language of:</p>
+      <div class="mflags">
+        <span class="mflag">🇵🇹 Portugal</span><span class="mflag">🇧🇷 Brasil</span><span class="mflag">🇦🇴 Angola</span><span class="mflag">🇲🇿 Moçambique</span><span class="mflag">🇨🇻 Cabo Verde</span><span class="mflag">🇬🇼 Guiné-Bissau</span><span class="mflag">🇸🇹 São Tomé e Príncipe</span><span class="mflag">🇹🇱 Timor-Leste</span>
+      </div>
+    </div>
+
+    <div class="mcard">
+      <h2>🎭 A little culture</h2>
+      <p><b>Fado</b> — soulful traditional music (UNESCO heritage). <b>Luís de Camões</b> — the great national poet. <b>Azulejos</b> — the beautiful painted tiles you see on many buildings. <b>Pastéis de nata</b> — famous custard tarts. 😋</p>
+    </div>
+
+    <div class="mcard">
+      <h2>🔤 The alphabet &amp; special sounds</h2>
+      <p style="font-size:16px;letter-spacing:2px;color:var(--green-ink);font-weight:800;text-align:center;background:#F2F7F3;border-radius:10px;padding:8px 4px">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</p>
+      <p>The alphabet has <b>26 letters</b> (k, w and y appear mostly in foreign words). A few sounds are special — tap an example to hear it:</p>
+      <table class="mtab">
+        <tr><td class="pt" onclick="speak('filho')">lh</td><td class="en">like “lli” in “million”</td><td class="pt" onclick="speak('filho')">filho <span class="mtiny">(son)</span></td></tr>
+        <tr><td class="pt" onclick="speak('vinho')">nh</td><td class="en">like “ni” in “onion”</td><td class="pt" onclick="speak('vinho')">vinho <span class="mtiny">(wine)</span></td></tr>
+        <tr><td class="pt" onclick="speak('pão')">ão / ã</td><td class="en">nasal (through the nose)</td><td class="pt" onclick="speak('pão')">pão <span class="mtiny">(bread)</span></td></tr>
+        <tr><td class="pt" onclick="speak('coração')">ç</td><td class="en">a soft “s”</td><td class="pt" onclick="speak('coração')">coração <span class="mtiny">(heart)</span></td></tr>
+        <tr><td class="pt" onclick="speak('chave')">ch</td><td class="en">like “sh”</td><td class="pt" onclick="speak('chave')">chave <span class="mtiny">(key)</span></td></tr>
+        <tr><td class="pt" onclick="speak('casa')">s (vowels)</td><td class="en">sounds like “z”</td><td class="pt" onclick="speak('casa')">casa <span class="mtiny">(house)</span></td></tr>
+        <tr><td class="pt" onclick="speak('carro')">rr</td><td class="en">strong, rolled “r”</td><td class="pt" onclick="speak('carro')">carro <span class="mtiny">(car)</span></td></tr>
+      </table>
+    </div>
+
+    <div class="mcard">
+      <h2>👋 Greetings &amp; courtesy</h2>
+      <table class="mtab">
+        <tr><td class="pt" onclick="speak('Olá')">Olá</td><td class="en">Hello</td></tr>
+        <tr><td class="pt" onclick="speak('Bom dia')">Bom dia</td><td class="en">Good morning</td></tr>
+        <tr><td class="pt" onclick="speak('Boa tarde')">Boa tarde</td><td class="en">Good afternoon</td></tr>
+        <tr><td class="pt" onclick="speak('Boa noite')">Boa noite</td><td class="en">Good evening / night</td></tr>
+        <tr><td class="pt" onclick="speak('Adeus')">Adeus</td><td class="en">Goodbye</td></tr>
+        <tr><td class="pt" onclick="speak('Por favor')">Por favor</td><td class="en">Please</td></tr>
+        <tr><td class="pt" onclick="speak('Obrigado')">Obrigado / Obrigada</td><td class="en">Thank you (man / woman)</td></tr>
+        <tr><td class="pt" onclick="speak('De nada')">De nada</td><td class="en">You are welcome</td></tr>
+        <tr><td class="pt" onclick="speak('Desculpe')">Desculpe</td><td class="en">Sorry / Excuse me</td></tr>
+        <tr><td class="pt" onclick="speak('Sim')">Sim</td><td class="en">Yes</td></tr>
+        <tr><td class="pt" onclick="speak('Não')">Não</td><td class="en">No</td></tr>
+      </table>
+    </div>
+
+    <div class="mcard">
+      <h2>🙋 Introduce yourself</h2>
+      <table class="mtab">
+        <tr><td class="pt" onclick="speak('Como se chama')">Como se chama?</td><td class="en">What is your name?</td></tr>
+        <tr><td class="pt" onclick="speak('Chamo-me')">Chamo-me…</td><td class="en">My name is…</td></tr>
+        <tr><td class="pt" onclick="speak('Muito prazer')">Muito prazer</td><td class="en">Nice to meet you</td></tr>
+        <tr><td class="pt" onclick="speak('De onde é')">De onde é?</td><td class="en">Where are you from?</td></tr>
+        <tr><td class="pt" onclick="speak('Sou de')">Sou de…</td><td class="en">I am from…</td></tr>
+        <tr><td class="pt" onclick="speak('Falo um pouco de português')">Falo um pouco de português</td><td class="en">I speak a little Portuguese</td></tr>
+        <tr><td class="pt" onclick="speak('Não percebo')">Não percebo</td><td class="en">I do not understand</td></tr>
+        <tr><td class="pt" onclick="speak('Pode repetir, por favor')">Pode repetir, por favor?</td><td class="en">Can you repeat, please?</td></tr>
+      </table>
+    </div>
+
+    <div class="mcard">
+      <h2>🔢 Numbers 0–10</h2>
+      <div class="mpills">
+        <span class="mpill" onclick="speak('zero')"><b>0</b>zero</span><span class="mpill" onclick="speak('um')"><b>1</b>um</span><span class="mpill" onclick="speak('dois')"><b>2</b>dois</span><span class="mpill" onclick="speak('três')"><b>3</b>três</span><span class="mpill" onclick="speak('quatro')"><b>4</b>quatro</span><span class="mpill" onclick="speak('cinco')"><b>5</b>cinco</span><span class="mpill" onclick="speak('seis')"><b>6</b>seis</span><span class="mpill" onclick="speak('sete')"><b>7</b>sete</span><span class="mpill" onclick="speak('oito')"><b>8</b>oito</span><span class="mpill" onclick="speak('nove')"><b>9</b>nove</span><span class="mpill" onclick="speak('dez')"><b>10</b>dez</span>
+      </div>
+    </div>
+
+    <div class="mcard">
+      <h2>🎗️ National symbols &amp; good to know</h2>
+      <ul class="mtl">
+        <li><b>Flag</b><span>Green and red, with the armillary sphere and the coat of arms (shown above).</span></li>
+        <li><b>Anthem</b><span><i>A Portuguesa</i> — the national anthem.</span></li>
+        <li><b>National day</b><span><b>10 June</b> — <i>Dia de Portugal, de Camões e das Comunidades</i>.</span></li>
+        <li><b>Money</b><span>The <b>euro</b> (€).</span></li>
+        <li><b>Capital</b><span><span class="pt" onclick="speak('Lisboa')" style="cursor:pointer">Lisboa</span> (Lisbon), on the river Tejo.</span></li>
+        <li><b>Fun fact</b><span>Portugal has one of the <b>oldest borders</b> in the world — almost unchanged since 1249.</span></li>
+      </ul>
+    </div>
+
+    <p class="mlead" style="margin-top:6px">✅ That’s the material! Now go back and play the games to practise. 🎮</p>
+    <div style="text-align:center"><button class="tomenu" onclick="show('home')">‹ Back to menu</button></div>
+  </div>
+</section>
+
+<!-- ===== THEME (learn + play) ===== -->
+<section id="theme" class="screen">
+  <div class="bar">
+    <button class="back" onclick="home()">← Menu</button>
+    <div class="bar-title" id="t-title">Theme<small id="t-en"></small></div>
+    <div class="chip" id="t-chip"></div>
+  </div>
+  <div class="panel">
+    <div class="segwrap" id="t-segs">
+      <button class="seg active" id="t-tab-learn" onclick="Theme.tab('learn')">Learn</button>
+      <button class="seg" id="t-tab-play" onclick="Theme.tab('play')">Play</button>
+    </div>
+
+    <!-- LEARN -->
+    <div id="t-learn">
+      <div class="howbar"><span class="i">👂</span><span><b>Step ① — Learn.</b> Tap any card to hear it and repeat out loud. When you know the words, press <b>▶ Play</b> to start.</span></div>
+      <div class="notebar hidden" id="t-note"></div>
+      <div class="learn-grid" id="t-grid"></div>
+      <div class="cta"><button class="btn btn-primary" onclick="Theme.tab('play')">I've learned these — Play ▶</button></div>
+    </div>
+
+    <!-- PLAY -->
+    <div id="t-play" class="hidden">
+      <!-- listening -->
+      <div id="g-listen" class="hidden">
+        <div class="setrow" id="l-sets"></div>
+        <div id="l-phase">
+          <div class="howbar"><span class="i">🎧</span><span><b>Listen carefully.</b> You can play the story up to <b>2 times</b> — then the audio closes and you answer from what you understood.</span></div>
+          <div class="center"><button class="spkbig" id="l-play">🔊 Play the story</button></div>
+          <div class="numhint" id="l-plays" style="text-align:center"></div>
+          <div class="center"><button class="btn btn-primary" id="l-start">Start the questions →</button></div>
+        </div>
+        <div class="numhint hidden" id="l-locked" style="text-align:center">🔒 The audio is closed — answer from what you heard. Tap a name above to listen again.</div>
+      </div>
+      <!-- pick game -->
+      <div id="g-pick">
+        <div id="g-pick-play">
+          <div class="howbar" id="g-how"></div>
+          <div class="center"><button class="spkbig" id="g-say" onclick="Pick.say()">🔊 Listen</button></div>
+          <div class="promptbox" id="g-prompt"></div>
+          <div class="numopts" id="g-opts"></div>
+          <div class="center" style="margin-top:14px;color:var(--muted);font-weight:700"><span id="g-count"></span> · <span id="g-score">0</span> correct</div>
+        </div>
+        <div id="g-result" class="result hidden"></div>
+      </div>
+      <!-- match game -->
+      <div id="g-match" class="hidden">
+        <div class="howbar"><span class="i">🔗</span><span><b>Tap a Portuguese word, then its English match</b> to connect the pair. Connect all 6 pairs at your own pace. Tap 🔊 to hear a word.</span></div>
+        <div class="matchwrap" id="gm-cols"><div class="col" id="gm-left"></div><div class="col" id="gm-right"></div></div>
+        <div id="gm-done" class="result hidden"></div>
+      </div>
+      <!-- order game -->
+      <div id="g-order" class="hidden">
+        <div class="setrow" id="o-sets"></div>
+        <div class="howbar"><span class="i">🔢</span><span><b>Put it in order.</b> Tap each step in the right sequence (1 → N). You’ll hear each one as you tap.</span></div>
+        <div class="numhint" id="o-status"></div>
+        <div class="ordgrid" id="o-grid"></div>
+        <div id="o-done" class="result hidden"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WORD OF THE DAY ===== -->
+<section id="wordday" class="screen">
+  <div class="bar">
+    <button class="back" onclick="home()">← Menu</button>
+    <div class="bar-title">Word of the day<small>Palavra do dia</small></div>
+    <div class="chip">⭐</div>
+  </div>
+  <div class="panel">
+    <div class="wordcard">
+      <div class="wordbig">alva</div>
+      <div class="wordtag">the first light of dawn</div>
+      <div class="center"><button class="spkbig" onclick="speak('alva')">🔊 Listen</button></div>
+      <p class="worddef"><b>Meaning:</b> <i>alva</i> is the soft, pale light just before sunrise — the <b>break of day</b>. It also means very white or pure (it is the feminine of <i>alvo</i>).</p>
+      <p class="worddef"><b>The morning star:</b> the “<b>estrela d’alva</b>” is the planet <b>Venus</b> — the bright star you can see at dawn.</p>
+      <p class="worddef"><b>Why it’s special:</b> <i>alva</i> is an old, poetic word — you meet it in poems and in Fado more than in everyday talk. It carries a feeling of calm, of hope and of a new beginning.</p>
+      <div class="wordquote">“ao romper da alva”<span>“at the break of dawn” — a classic poetic image</span></div>
+      <p class="worddef"><b>Related words</b> — tap to hear:</p>
+      <div class="wordexps">
+        <button class="wordexp" onclick="speak('a madrugada')"><span class="pt">A madrugada.</span><span class="en">the early hours</span><span class="spk">🔊</span></button>
+        <button class="wordexp" onclick="speak('o amanhecer')"><span class="pt">O amanhecer.</span><span class="en">the dawn / daybreak</span><span class="spk">🔊</span></button>
+        <button class="wordexp" onclick="speak('o nascer do sol')"><span class="pt">O nascer do sol.</span><span class="en">the sunrise</span><span class="spk">🔊</span></button>
+        <button class="wordexp" onclick="speak('a estrela de alva')"><span class="pt">A estrela d’alva.</span><span class="en">the morning star (Venus)</span><span class="spk">🔊</span></button>
+        <button class="wordexp" onclick="speak('branco')"><span class="pt">Branco / alvo.</span><span class="en">white / pure</span><span class="spk">🔊</span></button>
+      </div>
+      <p class="worddisc">💬 <b>Talk about it:</b> does your language have a special, beautiful word for the light just before the sun rises?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TEAM SETUP ===== -->
+<section id="teamsetup" class="screen">
+  <div class="bar">
+    <button class="back" onclick="home()">← Menu</button>
+    <div class="bar-title">Team mode<small>Set up your teams</small></div>
+    <div class="chip">🏆</div>
+  </div>
+  <div class="panel">
+    <div class="howbar"><span class="i">🏆</span><span><b>Team tournament.</b> Teams take turns to answer. A correct answer scores <b>10 points</b> — or <b>20 points</b> if the team answers <b>without</b> using the 🔊 audio! The scoreboard stays on screen. Most points wins!</span></div>
+    <div class="setup-block"><h4>How many teams?</h4><div class="segwrap" id="ts-count"></div></div>
+    <div class="setup-block"><h4>Team names</h4><div class="ts-names" id="ts-names"></div></div>
+    <div class="setup-block"><h4>Questions per team</h4><div class="segwrap" id="ts-rounds"></div></div>
+    <div class="setup-block"><h4>Topics (pick one or more)</h4><div class="chips" id="ts-themes"></div></div>
+    <div class="cta"><button class="btn btn-primary" onclick="Team.start()">Start tournament ▶</button></div>
+  </div>
+</section>
+
+<!-- ===== TEAM PLAY ===== -->
+<section id="teamplay" class="screen">
+  <div class="bar">
+    <button class="back" onclick="home()">← Menu</button>
+    <div class="bar-title">Team mode<small id="tp-progress"></small></div>
+    <div class="chip" onclick="Team.openSetup()" style="cursor:pointer">⚙︎ Config</div>
+  </div>
+  <div class="panel">
+    <div class="scoreboard" id="tp-scoreboard"></div>
+    <div id="tp-play">
+      <div class="turnbanner" id="tp-turn"></div>
+      <div class="center"><button class="spkbig" onclick="Team.say()">🔊 Listen</button></div>
+      <div class="numhint" style="margin-top:8px">Answer <b>without</b> 🔊 for <b>double points</b> (20) — using it gives 10.</div>
+      <div class="promptbox" id="tp-prompt"></div>
+      <div class="numopts" id="tp-opts"></div>
+      <div class="rowend"><button class="btn btn-primary hidden" id="tp-next" onclick="Team.next()">Next →</button></div>
+    </div>
+    <div id="tp-result" class="result hidden"></div>
+  </div>
+</section>
+
+</div>
+
+<script>
+/* ===== helpers ===== */
+const $ = id => document.getElementById(id);
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function sample(a,n){return shuffle(a).slice(0,n);}
+let timers=[];
+function clearTimers(){timers.forEach(t=>clearInterval(t));timers=[];}
+function show(id){
+  clearTimers();
+  if('speechSynthesis' in window) speechSynthesis.cancel();
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function home(){show('home');}
+
+/* text-to-speech (pt-PT voice) */
+let ptVoice=null;
+function _vscore(v){ const n=(v.name||'').toLowerCase(), l=(v.lang||'').toLowerCase(); let s=0;
+  if(/pt[-_]pt/.test(l)) s+=100; else if(/^pt/.test(l)) s+=40;
+  if(/google/.test(n)) s+=30; if(/(natural|enhanced|premium|neural)/.test(n)) s+=25; if(/(microsoft|siri)/.test(n)) s+=8;
+  if(/(joana|catarina|madalena|fernanda|duarte|in[eê]s)/.test(n)) s+=20;
+  if(/(luciana|brasil|brazil|pt[-_]br)/.test(n+' '+l)) s-=30;
+  if(v.localService) s+=3; return s; }
+function loadVoice(){ if(!('speechSynthesis' in window))return; const vs=speechSynthesis.getVoices()||[]; const ptpt=vs.filter(v=>/pt[-_]pt/i.test(v.lang||'')); const anypt=vs.filter(v=>/^pt/i.test(v.lang||'')); const pool=(ptpt.length?ptpt:anypt).slice(); pool.sort((a,b)=>_vscore(b)-_vscore(a)); ptVoice=pool[0]||null; }
+if('speechSynthesis' in window){ loadVoice(); speechSynthesis.onvoiceschanged=loadVoice; }
+function speak(t, rate){ if(!('speechSynthesis' in window))return; const u=new SpeechSynthesisUtterance(t); u.lang='pt-PT'; u.rate=rate||0.95; u.pitch=1; if(ptVoice)u.voice=ptVoice; speechSynthesis.cancel(); speechSynthesis.speak(u); }
+
+/* analog clock */
+function clockSVG(h,m){
+  const cx=100,cy=100,r=88; let ticks='';
+  for(let i=0;i<12;i++){ const a=i*Math.PI/6; const x1=cx+Math.sin(a)*(r-6),y1=cy-Math.cos(a)*(r-6),x2=cx+Math.sin(a)*(r-16),y2=cy-Math.cos(a)*(r-16);
+    ticks+='<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="#0A3D2A" stroke-width="'+(i%3===0?3:1.5)+'" stroke-linecap="round"/>'; }
+  const ma=m*Math.PI/30, ha=((h%12)+m/60)*Math.PI/6;
+  const hx=cx+Math.sin(ha)*46,hy=cy-Math.cos(ha)*46,mx=cx+Math.sin(ma)*70,my=cy-Math.cos(ma)*70;
+  return '<svg viewBox="0 0 200 200" width="180" height="180" xmlns="http://www.w3.org/2000/svg">'
+    +'<circle cx="100" cy="100" r="88" fill="#fff" stroke="#0A3D2A" stroke-width="4"/>'+ticks
+    +'<line x1="100" y1="100" x2="'+hx+'" y2="'+hy+'" stroke="#046A38" stroke-width="6" stroke-linecap="round"/>'
+    +'<line x1="100" y1="100" x2="'+mx+'" y2="'+my+'" stroke="#C8102E" stroke-width="4" stroke-linecap="round"/>'
+    +'<circle cx="100" cy="100" r="5" fill="#0A3D2A"/></svg>';
+}
+function renderPrompt(el,p){
+  if('emoji' in p) el.innerHTML='<div style="display:flex;flex-direction:column;align-items:center;gap:2px"><div class="emoji">'+p.emoji+'</div>'+(p.label?'<div class="emojilabel">'+p.label+'</div>':'')+'</div>';
+  else if('swatch' in p) el.innerHTML='<div class="swatch" style="background:'+p.swatch+'"></div>';
+  else if('clock' in p) el.innerHTML=clockSVG(p.clock.h,p.clock.m);
+  else if('body' in p) el.innerHTML=bodySVG(p.body);
+  else if('num' in p) el.innerHTML='<div class="numbig">'+p.num+'</div>';
+  else el.innerHTML='<div class="prompttext">'+p.text+'</div>';
+}
+
+/* stylised body figure with a highlighted part */
+function bodyBase(){
+  const SKIN='#F1D3AC', OUT='#0A3D2A', HAIR='#6B4A2B', DARK='#2a2a2a';
+  return ''
+   +'<line x1="70" y1="124" x2="46" y2="214" stroke="'+SKIN+'" stroke-width="16" stroke-linecap="round"/>'
+   +'<line x1="130" y1="124" x2="154" y2="214" stroke="'+SKIN+'" stroke-width="16" stroke-linecap="round"/>'
+   +'<line x1="86" y1="205" x2="85" y2="322" stroke="'+SKIN+'" stroke-width="20" stroke-linecap="round"/>'
+   +'<line x1="114" y1="205" x2="115" y2="322" stroke="'+SKIN+'" stroke-width="20" stroke-linecap="round"/>'
+   +'<path d="M66 120 Q100 108 134 120 L126 210 Q100 220 74 210 Z" fill="'+SKIN+'" stroke="'+OUT+'" stroke-width="2.5"/>'
+   +'<circle cx="46" cy="216" r="11" fill="'+SKIN+'" stroke="'+OUT+'" stroke-width="2"/>'
+   +'<circle cx="154" cy="216" r="11" fill="'+SKIN+'" stroke="'+OUT+'" stroke-width="2"/>'
+   +'<ellipse cx="82" cy="330" rx="16" ry="9" fill="'+SKIN+'" stroke="'+OUT+'" stroke-width="2"/>'
+   +'<ellipse cx="118" cy="330" rx="16" ry="9" fill="'+SKIN+'" stroke="'+OUT+'" stroke-width="2"/>'
+   +'<rect x="92" y="92" width="16" height="20" fill="'+SKIN+'" stroke="'+OUT+'" stroke-width="2"/>'
+   +'<ellipse cx="62" cy="60" rx="7" ry="10" fill="'+SKIN+'" stroke="'+OUT+'" stroke-width="2"/>'
+   +'<ellipse cx="138" cy="60" rx="7" ry="10" fill="'+SKIN+'" stroke="'+OUT+'" stroke-width="2"/>'
+   +'<circle cx="100" cy="60" r="38" fill="'+SKIN+'" stroke="'+OUT+'" stroke-width="2.5"/>'
+   +'<path d="M64 52 Q66 22 100 22 Q134 22 136 52 Q120 38 100 38 Q80 38 64 52 Z" fill="'+HAIR+'"/>'
+   +'<circle cx="88" cy="56" r="3.6" fill="'+DARK+'"/><circle cx="112" cy="56" r="3.6" fill="'+DARK+'"/>'
+   +'<path d="M100 60 L100 68 L104 68" stroke="'+OUT+'" stroke-width="2" fill="none" stroke-linecap="round"/>'
+   +'<path d="M90 78 Q100 86 110 78" stroke="'+OUT+'" stroke-width="2.5" fill="none" stroke-linecap="round"/>';
+}
+function bodySVG(key){
+  let rings='';
+  (BODY_POS[key]||[]).forEach(([x,y,r])=>{ rings+='<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="rgba(242,183,5,0.35)" stroke="#C8102E" stroke-width="3"/>'; });
+  return '<svg viewBox="0 0 200 348" width="150" height="260" xmlns="http://www.w3.org/2000/svg">'+bodyBase()+rings+'</svg>';
+}
+
+/* ===================== DATA ===================== */
+const HISTORY=[
+ {prompt:{text:'Capital of Portugal?'},answer:'Lisboa',opts:['Porto','Coimbra','Braga'],say:'Lisboa'},
+ {prompt:{text:'First King of Portugal?'},answer:'Afonso Henriques',opts:['Dom Dinis','Dom Manuel I','Viriato'],say:'Afonso Henriques'},
+ {prompt:{text:'When did Portugal become independent?'},answer:'1143',opts:['1096','1249','1500'],say:'1143'},
+ {prompt:{text:'The colours of the flag are…'},answer:'green & red',opts:['blue & white','red & yellow','green & gold'],say:'verde e vermelho'},
+ {prompt:{text:'Portugal is famous for the Age of…'},answer:'Discoveries',opts:['Revolution','Empire','Enlightenment'],say:'os Descobrimentos'},
+ {prompt:{text:'The traditional Portuguese music is…'},answer:'Fado',opts:['Flamenco','Tango','Samba'],say:'o Fado'},
+ {prompt:{text:"Portugal's only neighbour country is…"},answer:'Spain',opts:['France','Italy','Morocco'],say:'a Espanha'},
+ {prompt:{text:'Which country also speaks Portuguese?'},answer:'Brazil',opts:['Spain','France','Germany'],say:'o Brasil'},
+ {prompt:{text:'A famous Portuguese poet is…'},answer:'Camões',opts:['Cervantes','Dante','Shakespeare'],say:'Camões'}
+];
+const SAUD=[['Olá','Hello'],['Bom dia','Good morning'],['Boa tarde','Good afternoon'],['Boa noite','Good evening / night'],['Adeus','Goodbye'],['Por favor','Please'],['Obrigado','Thank you (said by a man)'],['Obrigada','Thank you (said by a woman)'],['De nada','You are welcome'],['Desculpe','Sorry / Excuse me'],['Sim','Yes'],['Não','No']];
+const INTRO=[['Como se chama?','What is your name?'],['Chamo-me…','My name is…'],['Muito prazer','Nice to meet you'],['De onde é?','Where are you from?'],['Sou de…','I am from…'],['Falo um pouco de português','I speak a little Portuguese'],['Não percebo','I do not understand'],['Pode repetir, por favor?','Can you repeat, please?']];
+const NUM=[['zero','0'],['um','1'],['dois','2'],['três','3'],['quatro','4'],['cinco','5'],['seis','6'],['sete','7'],['oito','8'],['nove','9'],['dez','10']];
+const DIAS=[['segunda-feira','Monday'],['terça-feira','Tuesday'],['quarta-feira','Wednesday'],['quinta-feira','Thursday'],['sexta-feira','Friday'],['sábado','Saturday'],['domingo','Sunday']];
+const SONS_LEARN=[
+ {pt:'filho',en:'“lh” sounds like the “lli” in “million”'},
+ {pt:'vinho',en:'“nh” sounds like the “ni” in “onion”'},
+ {pt:'pão',en:'“ão” is a nasal sound — the air goes through the nose'},
+ {pt:'coração',en:'“ç” is a soft “s” sound'},
+ {pt:'chave',en:'“ch” sounds like “sh” in “ship”'},
+ {pt:'casa',en:'“s” between two vowels sounds like “z”'},
+ {pt:'carro',en:'“rr” is a strong, rolled “r”'}
+];
+
+const saudItems = SAUD.map(([pt,en])=>({prompt:{text:en},answer:pt,say:pt,group:'saud'}));
+const introItems = INTRO.map(([pt,en])=>({prompt:{text:en},answer:pt,say:pt,group:'intro'}));
+const numItems = NUM.map(([pt,dig])=>({prompt:{text:dig},answer:pt,say:pt,group:'num'}));
+const diasItems = DIAS.map(([pt,en])=>({prompt:{text:en},answer:pt,say:pt,group:'dias'}));
+const sonsItems=[
+ {prompt:{text:'Which word has the “lh” sound (like “million”)?'},answer:'filho',opts:['vinho','chave','casa'],say:'filho'},
+ {prompt:{text:'Which word has the “nh” sound (like “onion”)?'},answer:'vinho',opts:['filho','pão','carro'],say:'vinho'},
+ {prompt:{text:'Which word has the nasal “ão”?'},answer:'pão',opts:['casa','chave','filho'],say:'pão'},
+ {prompt:{text:'Which word uses “ç” (a soft s)?'},answer:'coração',opts:['carro','vinho','chave'],say:'coração'},
+ {prompt:{text:'Which word has the “ch” (sh) sound?'},answer:'chave',opts:['casa','filho','pão'],say:'chave'},
+ {prompt:{text:'In which word does “s” sound like “z”?'},answer:'casa',opts:['chave','coração','carro'],say:'casa'}
+];
+
+const ALL_ITEMS=[].concat(saudItems, introItems, numItems);
+function _norm(s){ return (s||'').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/^(os|as|o|a|um|uma) /,'').replace(/[^a-z]/g,''); }
+function _lev(a,b){ const m=a.length,n=b.length; if(!m)return n; if(!n)return m; let prev=[...Array(n+1).keys()],cur=new Array(n+1); for(let i=1;i<=m;i++){ cur[0]=i; for(let j=1;j<=n;j++){ cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1)); } const t=prev; prev=cur; cur=t; } return prev[n]; }
+function _en(it){ return it.prompt ? (it.prompt.text||it.prompt.label||'') : ''; }
+function cognate(it){ const a=_norm(it.answer), e=_norm(_en(it)); if(a.length<3||e.length<3) return false; return (1-_lev(a,e)/Math.max(a.length,e.length))>=0.55; }
+function distractors(it, localPool){
+  const seen=new Set([it.answer]);
+  const c=cognate(it);
+  const all=(localPool&&localPool.length?localPool:ALL_ITEMS);
+  const grp = it.group ? ALL_ITEMS.filter(x=>x.group===it.group && x.answer!==it.answer) : [];
+  const tiers=[ grp.filter(x=>cognate(x)===c), ALL_ITEMS.filter(x=>x.answer!==it.answer && cognate(x)===c), grp, all.filter(x=>x.answer!==it.answer) ];
+  const out=[];
+  for(const tier of tiers){ for(const x of shuffle(tier)){ if(!seen.has(x.answer)){ seen.add(x.answer); out.push(x); if(out.length===3) break; } } if(out.length>=3) break; }
+  return out;
+}
+const mixItems = shuffle([].concat(HISTORY, saudItems, introItems, numItems));
+const TEAM_COLORS=['#046A38','#C8102E','#2A6FB0','#F2B705','#7A4FB0'];
+const THEME_POOLS={history:HISTORY, saudacoes:saudItems, intro:introItems, numeros:numItems};
+const THEME_LABELS={history:'History', saudacoes:'Greetings', intro:'Introductions', numeros:'Numbers'};
+const HISTORY_LEARN=[
+ {pt:'Lisboa', en:'The capital of Portugal is Lisbon (Lisboa).'},
+ {pt:'Afonso Henriques', en:'The first King of Portugal — Dom Afonso Henriques (12th century).'},
+ {pt:'1143', en:'The year Portugal became an independent country.'},
+ {pt:'verde e vermelho', en:'The colours of the flag: green and red (with a shield and an armillary sphere).'},
+ {pt:'os Descobrimentos', en:'The Age of Discoveries — Portuguese sailors explored the world in the 1400s and 1500s.'},
+ {pt:'o Fado', en:'The traditional music of Portugal.'},
+ {pt:'a Espanha', en:'Portugal\u2019s only neighbour by land is Spain.'},
+ {pt:'Camões', en:'Luís de Camões — the most famous Portuguese poet.'},
+ {pt:'o Brasil', en:'Portuguese is also spoken in Brazil, Angola, Mozambique and more.'}
+];
+
+const META={
+  history:{title:'História de Portugal',en:'History of Portugal',chip:'🏰',note:'Read (and hear) these facts about Portugal first — then test yourself in the quiz.',learn:HISTORY_LEARN,game:'pick',pick:{items:HISTORY,how:'You just read these — pick the right answer.'}},
+  saudacoes:{title:'Saudações e cortesia',en:'Greetings & courtesy',chip:'👋',learn:SAUD.map(([p,e])=>({pt:p,en:e})),game:'pick',pick:{items:saudItems,how:'Read the English and tap the Portuguese.'}},
+  intro:{title:'Apresentar-se',en:'Introduce yourself',chip:'🙋',learn:INTRO.map(([p,e])=>({pt:p,en:e})),game:'pick',pick:{items:introItems,how:'Read the English and tap the Portuguese.'}},
+  numeros:{title:'Números 0–10',en:'Numbers 0–10',chip:'🔢',learn:NUM.map(([p,d])=>({pt:p,en:d})),game:'pick',pick:{items:numItems,how:'Tap the Portuguese word for the number.'}},
+  sons:{title:'Alfabeto e sons',en:'Alphabet & sounds',chip:'🔤',note:'Portuguese has a few special sounds. Tap 🔊 on each example word to hear it, then try the quiz.',learn:SONS_LEARN,game:'pick',pick:{items:sonsItems,how:'Listen to the example words above, then pick the right one.'}}
+};
+
+/* ===================== THEME CONTROLLER ===================== */
+const Theme={
+  key:null, mixed:false,
+  open(k){
+    this.key=k; this.mixed=false; const m=META[k]; this.noLearn=!!m.playOnly;
+    show('theme');
+    $('t-title').firstChild.textContent=m.en; $('t-en').textContent=m.title; $('t-chip').textContent=m.chip;
+    if(m.playOnly){ $('t-segs').classList.add('hidden'); $('t-learn').classList.add('hidden'); $('t-play').classList.remove('hidden'); this.startGame(); }
+    else { $('t-segs').classList.remove('hidden'); this.tab('learn'); }
+  },
+  openMixed(){
+    this.key=null; this.mixed=true; this.noLearn=true;
+    show('theme');
+    $('t-title').firstChild.textContent='Final challenge'; $('t-en').textContent='Mixed challenge'; $('t-chip').textContent='🏆';
+    $('t-segs').classList.add('hidden');
+    $('t-learn').classList.add('hidden'); $('t-play').classList.remove('hidden');
+    this.showPick(); Pick.start(mixItems,'Everything from lessons 1, 2 and 3 \u2014 identify each one!',10);
+  },
+  tab(which){
+    $('t-tab-learn').classList.toggle('active',which==='learn');
+    $('t-tab-play').classList.toggle('active',which==='play');
+    $('t-learn').classList.toggle('hidden',which!=='learn');
+    $('t-play').classList.toggle('hidden',which!=='play');
+    if(which==='learn'){ clearTimers(); if('speechSynthesis' in window) speechSynthesis.cancel(); this.renderLearn(); }
+    else this.startGame();
+  },
+  renderLearn(){
+    const m=META[this.key];
+    const note=$('t-note');
+    if(m.note){ note.innerHTML=m.note; note.classList.remove('hidden'); } else note.classList.add('hidden');
+    const g=$('t-grid'); g.innerHTML='';
+    m.learn.forEach(it=>{
+      if(it.header){ const h=document.createElement('div'); h.className='learn-head'; h.textContent=it.header; g.appendChild(h); return; }
+      const c=document.createElement('button'); c.className='learn-card'+((it.hex||it.emoji)?' hasw':'');
+      let inner='';
+      if(it.hex) inner+='<span class="sw" style="background:'+it.hex+'"></span>';
+      else if(it.emoji) inner+='<span class="sw" style="border:none;background:transparent;display:grid;place-items:center;font-size:19px">'+it.emoji+'</span>';
+      inner+='<span class="lp">'+it.pt+'</span><span class="le">'+it.en+'</span><button class="spk" title="Hear it">🔊</button>';
+      c.innerHTML=inner;
+      c.onclick=()=>speak(it.pt);
+      c.querySelector('.spk').onclick=(e)=>{e.stopPropagation(); speak(it.pt);};
+      g.appendChild(c);
+    });
+  },
+  startGame(){
+    const m=META[this.key];
+    if(m.game==='match'){ this.showMatch(); Match.start(m.pairs); }
+    else if(m.game==='order'){ this.showOrder(); Order.start(); }
+    else if(m.game==='listen'){ this.showListen(); Listen.start(); }
+    else { this.showPick(); Pick.start(m.pick.items, m.pick.how, m.pick.rounds); }
+  },
+  showPick(){ $('g-pick').classList.remove('hidden'); $('g-match').classList.add('hidden'); $('g-order').classList.add('hidden'); $('g-listen').classList.add('hidden'); },
+  showMatch(){ $('g-match').classList.remove('hidden'); $('g-pick').classList.add('hidden'); $('g-order').classList.add('hidden'); $('g-listen').classList.add('hidden'); },
+  showOrder(){ $('g-order').classList.remove('hidden'); $('g-pick').classList.add('hidden'); $('g-match').classList.add('hidden'); $('g-listen').classList.add('hidden'); },
+  showListen(){ $('g-listen').classList.remove('hidden'); $('g-pick').classList.add('hidden'); $('g-match').classList.add('hidden'); $('g-order').classList.add('hidden'); }
+};
+
+/* ===================== PICK GAME ===================== */
+const Pick={
+  items:[], how:'', order:[], i:0, correct:0, N:10, cur:null,
+  start(items,how,rounds){
+    this.items=items; this.how=how||''; this.rounds=rounds||10; this.N=Math.min(this.rounds,items.length);
+    this.order=sample(items,this.N); this.i=0; this.correct=0;
+    $('g-how').innerHTML='<span class="i">\ud83c\udfaf</span><span>'+this.how+' &middot; <b>'+this.N+' questions</b>. Tap \ud83d\udd0a to listen.</span>';
+    $('g-result').classList.add('hidden'); $('g-pick-play').classList.remove('hidden');
+    this.round();
+  },
+  round(){
+    const it=this.order[this.i]; this.cur=it;
+    renderPrompt($('g-prompt'), it.prompt);
+    $('g-count').textContent=(this.i+1)+' / '+this.N;
+    // audio button only useful when there is a word to hear that isn't the answer shown; keep for all
+    let opts;
+    if(it.opts && it.opts.length){ opts=shuffle([it, ...sample(it.opts.map(t=>({answer:t})),3)]); }
+    else { opts=shuffle([it, ...distractors(it, this.items)]); }
+    const box=$('g-opts'); box.innerHTML='';
+    opts.forEach(o=>{ const b=document.createElement('button'); b.className='numopt'; b.textContent=o.answer; b.onclick=()=>this.answer(b,o); box.appendChild(b); });
+  },
+  answer(btn,o){
+    [...$('g-opts').children].forEach(b=>b.disabled=true);
+    if(o.answer===this.cur.answer){ btn.classList.add('correct'); this.correct++; }
+    else{ btn.classList.add('wrong'); [...$('g-opts').children].forEach(b=>{ if(b.textContent===this.cur.answer) b.classList.add('correct'); }); }
+    if(this.cur.say) speak(this.cur.say);
+    $('g-score').textContent=this.correct;
+    setTimeout(()=>{ if(this.i<this.N-1){ this.i++; this.round(); } else this.finish(); }, 950);
+  },
+  say(){ if(this.cur&&this.cur.say){ this.usedAudio=true; speak(this.cur.say); } },
+  finish(){
+    $('g-pick-play').classList.add('hidden');
+    const ratio=this.correct/this.N, stars=ratio>=0.85?'★★★':ratio>=0.55?'★★☆':'★☆☆';
+    const msg=ratio>=0.85?'Excellent!':ratio>=0.55?'Well done!':'Good try!';
+    const learnBtn = Theme.noLearn?'':'<button class="btn btn-ghost" onclick="Theme.tab(\'learn\')">Learn</button>';
+    $('g-result').classList.remove('hidden');
+    $('g-result').innerHTML='<div class="stars">'+stars+'</div><div class="score-big">'+this.correct+'<span style="font-size:26px;color:var(--muted)">/'+this.N+'</span></div>'
+      +'<p style="margin-top:2px">correct</p><h2>'+msg+'</h2>'
+      +'<div class="btns"><button class="btn btn-primary" onclick="Pick.start(Pick.items,Pick.how,Pick.rounds)">Play again</button>'+learnBtn+'<button class="btn btn-ghost" onclick="home()">Menu</button></div>';
+  }
+};
+
+/* ===================== MATCH GAME ===================== */
+const Match={
+  pairs:[], sel:null, done:0, total:0, t0:0,
+  start(all){
+    clearTimers();
+    this.pairs=sample(all, Math.min(6, all.length));
+    this.total=this.pairs.length; this.done=0; this.sel=null;
+    $('gm-done').classList.add('hidden'); $('gm-cols').classList.remove('hidden');
+    const left=$('gm-left'), right=$('gm-right'); left.innerHTML=''; right.innerHTML='';
+    this.pairs.forEach((p,idx)=>{
+      const l=document.createElement('button'); l.className='mtile'; l.dataset.k=idx; l.dataset.side='pt';
+      l.innerHTML='<span>'+p[0]+'</span><button class="spk" title="Hear it">🔊</button>';
+      l.querySelector('.spk').onclick=(e)=>{e.stopPropagation(); speak(p[0]);};
+      l.onclick=()=>this.tap(l); left.appendChild(l);
+    });
+    shuffle(this.pairs.map((p,i)=>({t:p[1],k:i}))).forEach(o=>{
+      const r=document.createElement('button'); r.className='mtile'; r.dataset.k=o.k; r.dataset.side='en';
+      r.textContent=o.t; r.onclick=()=>this.tap(r); right.appendChild(r);
+    });
+  },
+  tap(el){
+    if(el.classList.contains('done')) return;
+    if(!this.sel){ this.sel=el; el.classList.add('sel'); return; }
+    if(this.sel===el){ el.classList.remove('sel'); this.sel=null; return; }
+    if(this.sel.dataset.side===el.dataset.side){ this.sel.classList.remove('sel'); this.sel=el; el.classList.add('sel'); return; }
+    if(this.sel.dataset.k===el.dataset.k){
+      const ptTile=this.sel.dataset.side==='pt'?this.sel:el;
+      this.sel.classList.remove('sel'); this.sel.classList.add('done'); el.classList.add('done');
+      speak(ptTile.querySelector('span').textContent);
+      this.sel=null; this.done++;
+      if(this.done===this.total) this.finish();
+    } else {
+      const a=this.sel,b=el; a.classList.add('miss'); b.classList.add('miss');
+      setTimeout(()=>{a.classList.remove('miss','sel'); b.classList.remove('miss');},350);
+      this.sel=null;
+    }
+  },
+  finish(){
+    clearTimers();
+    $('gm-cols').classList.add('hidden'); $('gm-done').classList.remove('hidden');
+    $('gm-done').innerHTML='<div class="stars">🎉</div><h2>All matched!</h2><p>Well done — all pairs connected.</p>'
+      +'<div class="btns"><button class="btn btn-primary" onclick="Match.start(META[Theme.key].pairs)">Play again</button>'
+      +'<button class="btn btn-ghost" onclick="Theme.tab(\'learn\')">Learn</button>'
+      +'<button class="btn btn-ghost" onclick="home()">Menu</button></div>';
+  }
+};
+
+/* ===================== TEAM MODE ===================== */
+const Team={
+  nTeams:2, perTeam:5, teams:[], _names:null,
+  themes:['history','saudacoes','intro','numeros'],
+  pool:[], pi:0, turn:0, round:0, total:0, cur:null, answered:false, usedAudio:false,
+  openSetup(){
+    show('teamsetup');
+    const c=$('ts-count'); c.innerHTML='';
+    [2,3,4,5].forEach(n=>{ const b=document.createElement('button'); b.className='seg'+(n===this.nTeams?' active':''); b.textContent=n+' teams'; b.onclick=()=>{ this.saveNames(); this.nTeams=n; this.openSetup(); }; c.appendChild(b); });
+    const names=$('ts-names'); names.innerHTML='';
+    for(let i=0;i<this.nTeams;i++){
+      const prev=(this._names&&this._names[i])||('Team '+(i+1));
+      const row=document.createElement('div'); row.className='ts-name';
+      row.innerHTML='<span class="dot" style="background:'+TEAM_COLORS[i]+'"></span>';
+      const inp=document.createElement('input'); inp.type='text'; inp.value=prev; inp.maxLength=18; inp.dataset.i=i;
+      row.appendChild(inp); names.appendChild(row);
+    }
+    const r=$('ts-rounds'); r.innerHTML='';
+    [5,8,12].forEach(n=>{ const b=document.createElement('button'); b.className='seg'+(n===this.perTeam?' active':''); b.textContent=n; b.onclick=()=>{ this.saveNames(); this.perTeam=n; this.openSetup(); }; r.appendChild(b); });
+    const t=$('ts-themes'); t.innerHTML='';
+    Object.keys(THEME_POOLS).forEach(k=>{ const b=document.createElement('button'); b.className='chipbtn'+(this.themes.includes(k)?' on':''); b.textContent=THEME_LABELS[k]; b.onclick=()=>{ this.saveNames(); if(this.themes.includes(k)) this.themes=this.themes.filter(x=>x!==k); else this.themes.push(k); this.openSetup(); }; t.appendChild(b); });
+  },
+  saveNames(){ const el=$('ts-names'); if(!el) return; this._names=[...el.querySelectorAll('input')].map(i=>i.value.trim()||('Team '+(+i.dataset.i+1))); },
+  start(){
+    this.saveNames();
+    if(this.themes.length===0) this.themes=['cores'];
+    this.teams=[]; for(let i=0;i<this.nTeams;i++) this.teams.push({name:(this._names&&this._names[i])||('Team '+(i+1)), score:0, color:TEAM_COLORS[i]});
+    this.pool=this.buildPool(); this.pi=0;
+    this.turn=0; this.round=0; this.total=this.perTeam*this.nTeams; this.answered=false;
+    $('tp-result').classList.add('hidden'); $('tp-play').classList.remove('hidden');
+    show('teamplay'); this.renderScore(); this.question();
+  },
+  buildPool(){
+    const buckets={}; this.themes.forEach(k=>{ const b=shuffle(THEME_POOLS[k]); if(b.length) buckets[k]=b; });
+    const keys=()=>Object.keys(buckets).filter(k=>buckets[k].length);
+    const seq=[]; let last=null;
+    while(keys().length){
+      const order=shuffle(keys());
+      if(order.length>1 && order[0]===last) order.push(order.shift());
+      order.forEach(k=>{ if(buckets[k].length){ seq.push(buckets[k].shift()); last=k; } });
+    }
+    return seq;
+  },
+  drawItem(){ if(this.pi>=this.pool.length){ this.pool=this.buildPool(); this.pi=0; } return this.pool[this.pi++]; },
+  renderScore(){
+    const sb=$('tp-scoreboard'); sb.innerHTML='';
+    this.teams.forEach((t,i)=>{
+      const c=document.createElement('div'); c.className='teamcard'+(i===this.turn?' active':'');
+      c.innerHTML='<div class="tname"><span class="dot" style="background:'+t.color+'"></span>'+t.name+'</div><div class="tscore" id="tp-sc-'+i+'">'+t.score+'</div><span class="plus" id="tp-plus-'+i+'"></span>';
+      sb.appendChild(c);
+    });
+  },
+  question(){
+    this.answered=false; this.usedAudio=false;
+    const it=this.drawItem(); this.cur=it;
+    $('tp-turn').innerHTML='Turn: <b>'+this.teams[this.turn].name+'</b>';
+    $('tp-progress').textContent='Question '+(this.round+1)+' / '+this.total;
+    renderPrompt($('tp-prompt'), it.prompt);
+    let opts;
+    if(it.opts && it.opts.length){ opts=shuffle([it, ...sample(it.opts.map(t=>({answer:t})),3)]); }
+    else { opts=shuffle([it, ...distractors(it, this.pool)]); }
+    const box=$('tp-opts'); box.innerHTML='';
+    opts.forEach(o=>{ const b=document.createElement('button'); b.className='numopt'; b.textContent=o.answer; b.onclick=()=>this.answer(b,o); box.appendChild(b); });
+    $('tp-next').classList.add('hidden');
+  },
+  answer(btn,o){
+    if(this.answered) return; this.answered=true;
+    [...$('tp-opts').children].forEach(b=>b.disabled=true);
+    if(o.answer===this.cur.answer){
+      const pts=this.usedAudio?10:20;
+      btn.classList.add('correct'); this.teams[this.turn].score+=pts;
+      $('tp-sc-'+this.turn).textContent=this.teams[this.turn].score;
+      const pl=$('tp-plus-'+this.turn); pl.textContent='+'+pts; pl.classList.remove('show'); void pl.offsetWidth; pl.classList.add('show');
+    } else {
+      btn.classList.add('wrong'); [...$('tp-opts').children].forEach(b=>{ if(b.textContent===this.cur.answer) b.classList.add('correct'); });
+    }
+    if(this.cur.say) speak(this.cur.say);
+    this.round++;
+    $('tp-next').classList.remove('hidden');
+    $('tp-next').textContent=(this.round>=this.total)?'See results →':'Next →';
+  },
+  next(){ if(this.round>=this.total){ this.finish(); return; } this.turn=(this.turn+1)%this.nTeams; this.renderScore(); this.question(); },
+  say(){ if(this.cur&&this.cur.say){ this.usedAudio=true; speak(this.cur.say); } },
+  finish(){
+    $('tp-play').classList.add('hidden');
+    const ranked=this.teams.map(t=>({...t})).sort((a,b)=>b.score-a.score);
+    const top=ranked[0].score, winners=ranked.filter(t=>t.score===top), medals=['🥇','🥈','🥉'];
+    const rows=ranked.map((t,i)=>'<div class="rankrow"><span class="rk">'+(medals[i]||(i+1)+'.')+'</span><span class="dot" style="background:'+t.color+'"></span><span class="rn">'+t.name+'</span><span class="rs">'+t.score+' pts</span></div>').join('');
+    const headline=winners.length>1?'It’s a tie! 🎉':('🏆 '+winners[0].name+' wins!');
+    $('tp-result').classList.remove('hidden');
+    $('tp-result').innerHTML='<div class="stars">🏆</div><h2>'+headline+'</h2><div class="ranklist">'+rows+'</div>'
+      +'<div class="btns"><button class="btn btn-primary" onclick="Team.replay()">Play again</button>'
+      +'<button class="btn btn-ghost" onclick="Team.openSetup()">New setup</button>'
+      +'<button class="btn btn-ghost" onclick="home()">Menu</button></div>';
+  },
+  replay(){ this.teams.forEach(t=>t.score=0); this.pool=this.buildPool(); this.pi=0; this.turn=0; this.round=0; this.answered=false; $('tp-result').classList.add('hidden'); $('tp-play').classList.remove('hidden'); this.renderScore(); this.question(); }
+};
+
+/* ===================== ORDER GAME ===================== */
+const Order={
+  set:null, list:[], next:0, wrong:0,
+  start(){
+    const keys=Object.keys(ORDER_SETS);
+    const sr=$('o-sets'); sr.innerHTML='';
+    keys.forEach(k=>{ const b=document.createElement('button'); b.className='setbtn'; b.textContent=ORDER_LABELS[k]||k; b.dataset.k=k; b.onclick=()=>this.pick(k); sr.appendChild(b); });
+    this.pick(keys[0]);
+  },
+  pick(key){
+    this.set=key; this.list=ORDER_SETS[key]; this.next=0; this.wrong=0;
+    [...$('o-sets').children].forEach(b=>b.classList.toggle('active', b.dataset.k===key));
+    $('o-done').classList.add('hidden'); $('o-grid').classList.remove('hidden');
+    const box=$('o-grid'); box.innerHTML='';
+    shuffle(this.list).forEach(it=>{ const b=document.createElement('button'); b.className='ordtile'; b.textContent=it[0]; b.dataset.pt=it[0]; b.onclick=()=>this.tap(b); box.appendChild(b); });
+    $('o-status').textContent='Tap in order · 1 / '+this.list.length;
+  },
+  tap(b){
+    if(b.classList.contains('done')) return;
+    const expected=this.list[this.next][0];
+    if(b.dataset.pt===expected){
+      b.classList.add('done'); b.textContent=(this.next+1)+'. '+b.dataset.pt; speak(expected);
+      this.next++;
+      if(this.next===this.list.length){ $('o-status').textContent='Done!'; this.finish(); }
+      else $('o-status').textContent='Tap in order · '+(this.next+1)+' / '+this.list.length;
+    } else {
+      b.classList.add('miss'); this.wrong++; setTimeout(()=>b.classList.remove('miss'),350);
+    }
+  },
+  finish(){
+    const d=$('o-done'); d.classList.remove('hidden');
+    d.innerHTML='<div class="stars">🎉</div><h2>Boa!</h2><p>'+(this.wrong===0?'Perfect order — no mistakes!':this.wrong+' wrong taps')+'</p>'+
+      '<div class="btns"><button class="btn btn-primary" onclick="Order.pick(Order.set)">Play again</button><button class="btn btn-ghost" onclick="home()">Menu</button></div>';
+  }
+};
+
+/* ===================== LISTENING GAME ===================== */
+const Listen={
+  set:null, plays:2, MAXPLAYS:2,
+  start(){
+    const keys=Object.keys(LISTEN); const sr=$('l-sets'); sr.innerHTML='';
+    keys.forEach(k=>{ const b=document.createElement('button'); b.className='setbtn'; b.textContent=(LISTEN[k].emoji?LISTEN[k].emoji+' ':'')+LISTEN[k].name; b.dataset.k=k; b.onclick=()=>this.pick(k); sr.appendChild(b); });
+    $('l-play').onclick=()=>this.play();
+    $('l-start').onclick=()=>this.startQ();
+    this.pick(keys[0]);
+  },
+  pick(key){ this.set=key; [...$('l-sets').children].forEach(b=>b.classList.toggle('active', b.dataset.k===key)); this.toListen(); },
+  toListen(){ this.plays=this.MAXPLAYS; $('l-phase').classList.remove('hidden'); $('l-locked').classList.add('hidden'); $('g-pick').classList.add('hidden'); $('l-play').disabled=false; this._upd(); },
+  _upd(){ $('l-plays').textContent = this.plays>0 ? ('🔊 plays left: '+this.plays) : 'no plays left — start the questions'; if(this.plays<=0) $('l-play').disabled=true; },
+  play(){ if(this.plays<=0) return; const p=LISTEN[this.set]; speak(p.passage, 0.9); this.plays--; this._upd(); },
+  startQ(){ if('speechSynthesis' in window) speechSynthesis.cancel(); $('l-phase').classList.add('hidden'); $('l-locked').classList.remove('hidden'); $('g-pick').classList.remove('hidden'); const p=LISTEN[this.set]; Pick.start(p.items, 'Answer from what you heard — the audio is closed.', p.items.length); }
+};
+
+/* expose for inline handlers + testing */
+window.Theme=Theme; window.Pick=Pick; window.Match=Match; window.Team=Team; window.META=META;
+window.mixItems=mixItems; window.THEME_POOLS=THEME_POOLS; window.ALL_ITEMS=ALL_ITEMS; window.META=META;
+window.show=show; window.home=home;
+</script>
+</body>
+</html>
