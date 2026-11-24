@@ -269,7 +269,7 @@ body.tv .wordexp .spk{font-size:22px}
     <span class="flagchip"><i class="g"></i><i class="r"></i></span>
     <div class="eyebrow">IAFA · Erasmus · Lesson 2</div>
     <h1 class="h-title">Portuguese — <span>everyday life</span></h1>
-    <p class="h-sub">New topics for lesson 2: colours, bigger numbers &amp; prices, telling the time, food &amp; drink, getting around, and the verbs <i>ser · estar · ter</i>. Learn a theme, then play. Turn your sound on to hear it.</p>
+    <p class="h-sub">New topics for lesson 2: colours, bigger numbers &amp; prices, telling the time, food &amp; drink, and getting around. Learn a theme, then play. Turn your sound on to hear it.</p>
   </div>
 
   <div class="flowline">
@@ -288,7 +288,6 @@ body.tv .wordexp .spk{font-size:22px}
     <button class="tile s" onclick="Theme.open('horas')"><span class="corner"></span><span class="badge">🕐</span><h3>Telling the time</h3><p>As horas · read the clock</p></button>
     <button class="tile m" onclick="Theme.open('comida')"><span class="corner"></span><span class="badge">🍽️</span><h3>Food &amp; drink</h3><p>A comida · food &amp; the restaurant</p></button>
     <button class="tile s" onclick="Theme.open('direcoes')"><span class="corner"></span><span class="badge">🧭</span><h3>Getting around</h3><p>Direções · directions &amp; transport</p></button>
-    <button class="tile q" onclick="Theme.open('verbos')"><span class="corner"></span><span class="badge">🗣️</span><h3>Key verbs</h3><p>Ser · estar · ter (to be / to have)</p></button>
     <button class="tile m" onclick="Theme.open('corpo')"><span class="corner"></span><span class="badge">🩺</span><h3>Body &amp; health</h3><p>O corpo · body parts + the doctor</p></button>
     <button class="tile wide" onclick="Theme.openMixed()"><span class="badge">🏆</span><div><h3>Final challenge</h3><p>Mixed quiz — colours, numbers, time &amp; body</p></div></button>
   </div>
@@ -497,16 +496,6 @@ const FOODPHRASES=[['A ementa, por favor','The menu, please'],['Queria…','I wo
 const DIRS=[['à esquerda','(to the) left'],['à direita','(to the) right'],['em frente','straight ahead'],['perto','near'],['longe','far'],['aqui','here'],['ali','there'],['a rua','the street'],['a praça','the square']];
 const TRANSPORT=[['o autocarro','the bus'],['o comboio','the train'],['o metro','the metro'],['o elétrico','the tram'],['a estação','the station'],['a paragem','the (bus) stop'],['o bilhete','the ticket'],['a pé','on foot']];
 const DIRPHRASES=[['Onde fica…?','Where is…?'],['Como chego a…?','How do I get to…?'],['Fica longe?','Is it far?']];
-const VERBS={
-  ser:[['eu','sou'],['tu','és'],['ele/ela','é'],['nós','somos'],['eles/elas','são']],
-  estar:[['eu','estou'],['tu','estás'],['ele/ela','está'],['nós','estamos'],['eles/elas','estão']],
-  ter:[['eu','tenho'],['tu','tens'],['ele/ela','tem'],['nós','temos'],['eles/elas','têm']]
-};
-const VERBLEARN=[
-  ['eu sou','(ser) I am'],['tu és','you are'],['ele/ela é','he/she is'],['nós somos','we are'],['eles/elas são','they are'],
-  ['eu estou','(estar) I am'],['tu estás','you are'],['ele/ela está','he/she is'],['nós estamos','we are'],['eles/elas estão','they are'],
-  ['eu tenho','(ter) I have'],['tu tens','you have'],['ele/ela tem','he/she has'],['nós temos','we have'],['eles/elas têm','they have']
-];
 const BODYPARTS=[
   {key:'cabeca',pt:'a cabeça',en:'head'},{key:'cabelo',pt:'o cabelo',en:'hair'},{key:'olhos',pt:'os olhos',en:'eyes'},
   {key:'nariz',pt:'o nariz',en:'nose'},{key:'boca',pt:'a boca',en:'mouth'},{key:'orelhas',pt:'as orelhas',en:'ears'},
@@ -526,7 +515,6 @@ const colourItems = COLOURS.map(c=>({prompt:{swatch:c.hex}, answer:c.pt, say:c.p
 const numItems = NUMS.map(([n,w])=>({prompt:{num:n}, answer:w, say:w, group:'num'}))
   .concat([['20 €','vinte euros'],['15 €','quinze euros'],['50 €','cinquenta euros'],['12 €','doze euros']].map(([t,w])=>({prompt:{text:t}, answer:w, say:w, group:'price'})));
 const timeItems = TIMES.map(t=>({prompt:{clock:{h:t.h,m:t.m}}, answer:t.txt, say:t.txt, group:'hora'}));
-const verbItems = []; Object.entries(VERBS).forEach(([v,rows])=>rows.forEach(([pron,form])=>verbItems.push({prompt:{text:v+' · '+pron+' ___'}, answer:form, say:pron+' '+form, group:v})));
 const bodyItems = BODYPARTS.map(p=>({prompt:{body:p.key}, answer:p.pt, say:p.pt, group:'corpo'}));
 const mixItems = shuffle([].concat(
   sample(colourItems,3),
@@ -539,8 +527,8 @@ const mixItems = shuffle([].concat(
 const foodItems = FOODS.map(([pt,en])=>({prompt:{text:en}, answer:pt, say:pt, group:'comida'}));
 const dirItems = DIRS.concat(TRANSPORT).map(([pt,en])=>({prompt:{text:en}, answer:pt, say:pt, group:'direcoes'}));
 const TEAM_COLORS=['#046A38','#C8102E','#2A6FB0','#F2B705'];
-const THEME_POOLS={cores:colourItems, numeros:numItems, horas:timeItems, verbos:verbItems, corpo:bodyItems, comida:foodItems, direcoes:dirItems};
-const THEME_LABELS={cores:'Colours', numeros:'Numbers', horas:'Time', verbos:'Verbs', corpo:'Body', comida:'Food', direcoes:'Directions'};
+const THEME_POOLS={cores:colourItems, numeros:numItems, horas:timeItems, corpo:bodyItems, comida:foodItems, direcoes:dirItems};
+const THEME_LABELS={cores:'Colours', numeros:'Numbers', horas:'Time', corpo:'Body', comida:'Food', direcoes:'Directions'};
 
 const toPairs = arr => arr.map(([pt,en])=>({pt,en}));
 const META={
@@ -549,7 +537,6 @@ const META={
   horas:{title:'As horas',en:'Telling the time',chip:'🕐',learn:TIMELEARN.map(([p,e])=>({pt:p,en:e})),game:'pick',pick:{items:timeItems,how:'Read the clock and tap the matching time.'}},
   comida:{title:'Comida & bebida',en:'Food & drink',chip:'🍽️',learn:FOODS.concat(FOODPHRASES).map(([p,e])=>({pt:p,en:e})),game:'pick',pick:{items:foodItems,how:'Read the English word and tap the Portuguese one.'}},
   direcoes:{title:'Direções & transportes',en:'Getting around',chip:'🧭',learn:DIRS.concat(TRANSPORT).concat(DIRPHRASES).map(([p,e])=>({pt:p,en:e})),game:'pick',pick:{items:dirItems,how:'Read the English word and tap the Portuguese one.'}},
-  verbos:{title:'Verbos: ser, estar, ter',en:'Key verbs (present)',chip:'🗣️',note:'<b>ser</b> = permanent (sou português) · <b>estar</b> = state/place (estou em casa) · <b>ter</b> = to have',learn:VERBLEARN.map(([p,e])=>({pt:p,en:e})),game:'pick',pick:{items:verbItems,how:'Complete the sentence \u2014 tap the correct verb form.'}},
   corpo:{title:'O corpo e a saúde',en:'Body & health',chip:'🩺',note:'Say the highlighted part — then learn a few phrases for the doctor or pharmacy.',learn:BODYPARTS.map(p=>({pt:p.pt,en:p.en})).concat(HEALTH.map(([p,e])=>({pt:p,en:e}))),game:'pick',pick:{items:bodyItems,how:'Tap the word for the highlighted part of the body.'}}
 };
 
@@ -696,7 +683,7 @@ const Match={
 /* ===================== TEAM MODE ===================== */
 const Team={
   nTeams:2, perTeam:5, teams:[], _names:null,
-  themes:['cores','numeros','horas','verbos','corpo','comida','direcoes'],
+  themes:['cores','numeros','horas','corpo','comida','direcoes'],
   pool:[], pi:0, turn:0, round:0, total:0, cur:null, answered:false, usedAudio:false,
   openSetup(){
     show('teamsetup');
@@ -793,7 +780,7 @@ const Team={
 
 /* expose for inline handlers + testing */
 window.Theme=Theme; window.Pick=Pick; window.Match=Match; window.Team=Team; window.META=META;
-window.colourItems=colourItems; window.numItems=numItems; window.timeItems=timeItems; window.verbItems=verbItems; window.mixItems=mixItems; window.THEME_POOLS=THEME_POOLS;
+window.colourItems=colourItems; window.numItems=numItems; window.timeItems=timeItems; window.mixItems=mixItems; window.THEME_POOLS=THEME_POOLS;
 window.show=show; window.home=home;
 </script>
 </body>

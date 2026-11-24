@@ -248,7 +248,7 @@ body.tv .tomenu{font-size:19px;padding:11px 20px}
     <span class="flagchip"><i class="g"></i><i class="r"></i></span>
     <div class="eyebrow">IAFA · Erasmus · Lesson 3</div>
     <h1 class="h-title">Portuguese — <span>people &amp; feelings</span></h1>
-    <p class="h-sub">New for lesson 3: describing words, the rooms of a house, family &amp; relationships, jobs, and feelings. Learn a theme, then play. Turn your sound on to hear it.</p>
+    <p class="h-sub">New for lesson 3: describing words, the rooms of a house, family &amp; relationships, jobs, feelings, and the verbs <i>ser · estar · ter</i>. Learn a theme, then play. Turn your sound on to hear it.</p>
   </div>
 
   <div class="flowline">
@@ -266,6 +266,7 @@ body.tv .tomenu{font-size:19px;padding:11px 20px}
     <button class="tile m" onclick="Theme.open('relacoes')"><span class="corner"></span><span class="badge">👨‍👩‍👧</span><h3>Family &amp; relationships</h3><p>Relações · family</p></button>
     <button class="tile n" onclick="Theme.open('ocupacoes')"><span class="corner"></span><span class="badge">👷</span><h3>Jobs</h3><p>Ocupações · occupations</p></button>
     <button class="tile q" onclick="Theme.open('emocoes')"><span class="corner"></span><span class="badge">😊</span><h3>Feelings</h3><p>Emoções · emotions &amp; feelings</p></button>
+    <button class="tile s" onclick="Theme.open('verbos')"><span class="corner"></span><span class="badge">🗣️</span><h3>Key verbs</h3><p>Ser · estar · ter (to be / to have)</p></button>
     <button class="tile wide" onclick="Theme.openMixed()"><span class="badge">🏆</span><div><h3>Final challenge</h3><p>Mixed quiz — adjectives, jobs &amp; feelings</p></div></button>
   </div>
   <p class="tip">👥 <b>Teacher tip:</b> pick a theme, learn the words together (tap 🔊), then switch to <b>Play</b> and compete in teams.</p>
@@ -443,10 +444,22 @@ const emoItems = EMO.map(([pt,en,em])=>({prompt:{emoji:em, label:en}, answer:pt,
 const mixItems = shuffle([].concat(sample(adjItems,4), sample(occItems,3), sample(emoItems,3), sample(roomItems,2)));
 
 const TEAM_COLORS=['#046A38','#C8102E','#2A6FB0','#F2B705'];
-const THEME_POOLS={adjetivos:adjItems, sitios:roomItems, relacoes:relItems, ocupacoes:occItems, emocoes:emoItems};
-const THEME_LABELS={adjetivos:'Adjectives', sitios:'House', relacoes:'Family', ocupacoes:'Jobs', emocoes:'Feelings'};
+const VERBS={
+  ser:[['eu','sou'],['tu','és'],['ele/ela','é'],['nós','somos'],['eles/elas','são']],
+  estar:[['eu','estou'],['tu','estás'],['ele/ela','está'],['nós','estamos'],['eles/elas','estão']],
+  ter:[['eu','tenho'],['tu','tens'],['ele/ela','tem'],['nós','temos'],['eles/elas','têm']]
+};
+const VERBLEARN=[
+  ['eu sou','(ser) I am'],['tu és','you are'],['ele/ela é','he/she is'],['nós somos','we are'],['eles/elas são','they are'],
+  ['eu estou','(estar) I am'],['tu estás','you are'],['ele/ela está','he/she is'],['nós estamos','we are'],['eles/elas estão','they are'],
+  ['eu tenho','(ter) I have'],['tu tens','you have'],['ele/ela tem','he/she has'],['nós temos','we have'],['eles/elas têm','they have']
+];
+const verbItems = []; Object.entries(VERBS).forEach(([v,rows])=>rows.forEach(([pron,form])=>verbItems.push({prompt:{text:v+' · '+pron+' ___'}, answer:form, say:pron+' '+form, group:v})));
+const THEME_POOLS={adjetivos:adjItems, sitios:roomItems, relacoes:relItems, ocupacoes:occItems, emocoes:emoItems, verbos:verbItems};
+const THEME_LABELS={adjetivos:'Adjectives', sitios:'House', relacoes:'Family', ocupacoes:'Jobs', emocoes:'Feelings', verbos:'Verbs'};
 
 const META={
+  verbos:{title:'Verbos: ser, estar, ter',en:'Key verbs (present)',chip:'🗣️',note:'<b>ser</b> = permanent (sou português) · <b>estar</b> = state/place (estou em casa) · <b>ter</b> = to have',learn:VERBLEARN.map(([p,e])=>({pt:p,en:e})),game:'pick',pick:{items:verbItems,how:'Complete the sentence \u2014 tap the correct verb form.'}},
   adjetivos:{title:'Adjetivos',en:'Adjectives',chip:'💬',note:'Many go in opposites — <b>alto/baixo</b>, <b>bom/mau</b>, <b>caro/barato</b>…',learn:ADJ.map(([p,e])=>({pt:p,en:e})),game:'pick',pick:{items:adjItems,how:'Read the English word and tap the Portuguese one.'}},
   sitios:{title:'Sítios da casa',en:'Rooms of the house',chip:'🏠',learn:ROOMS.map(([p,e])=>({pt:p,en:e})),game:'pick',pick:{items:roomItems,how:'Read the English word and tap the Portuguese one.'}},
   relacoes:{title:'Relações',en:'Family & relationships',chip:'👨‍👩‍👧',learn:REL.map(([p,e])=>({pt:p,en:e})),game:'pick',pick:{items:relItems,how:'Read the English word and tap the Portuguese one.'}},
@@ -598,7 +611,7 @@ const Match={
 /* ===================== TEAM MODE ===================== */
 const Team={
   nTeams:2, perTeam:5, teams:[], _names:null,
-  themes:['adjetivos','sitios','relacoes','ocupacoes','emocoes'],
+  themes:['adjetivos','sitios','relacoes','ocupacoes','emocoes','verbos'],
   pool:[], pi:0, turn:0, round:0, total:0, cur:null, answered:false, usedAudio:false,
   openSetup(){
     show('teamsetup');
@@ -695,7 +708,7 @@ const Team={
 
 /* expose for inline handlers + testing */
 window.Theme=Theme; window.Pick=Pick; window.Match=Match; window.Team=Team; window.META=META;
-window.mixItems=mixItems; window.THEME_POOLS=THEME_POOLS; window.adjItems=adjItems; window.occItems=occItems; window.emoItems=emoItems;
+window.mixItems=mixItems; window.THEME_POOLS=THEME_POOLS; window.adjItems=adjItems; window.occItems=occItems; window.emoItems=emoItems; window.verbItems=verbItems;
 window.show=show; window.home=home;
 </script>
 </body>
